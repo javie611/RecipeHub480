@@ -2,9 +2,21 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
+});
+
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+Route::get('/login', function () {
+    return view('login');
 });
 
 Route::get('/dashboard', function () {
@@ -17,4 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 require __DIR__.'/auth.php';

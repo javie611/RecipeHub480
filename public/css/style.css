@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body{background: #c4d7f6;}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+}
+
+.box{
+    background: #e2ecfb;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 25px;
+    border-radius: 25px;
+}
+
+.form-box{
+    width: 450px;
+    margin: 0px 10px;  
+}
+
+.form-box header{
+    font-size: 30px;
+    font-weight: bolder;
+    padding-bottom: 10px;
+    border-bottom: #c4d7f6;
+}
+
+.form-box form .field{
+    display: flex;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.form-box form .input input{
+    height: 30px;
+    width: 100%;
+    font-size: 15px;
+    padding: 0 1px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.btn{
+    height: 30px;
+    background: #43bead;
+    border: 0;
+    border-radius: 5px;
+    color: azure;
+    cursor: pointer;
+    transition: all .3s;
+    margin-top: 10px;
+    padding: 0px 10px;
+}
+
+.btn:hover{opacity: 1;}
+
+.submit{width: 100%;}
+
+.link{margin-bottom: 10px;}
+
+/************************home page***************************/
+
+.nav{
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    line-height: 60px;
+    z-index: 100;
+}
+
+.logo{
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.logo a{
+    text-decoration: none;
+    color: #000;
+}
+
+.right-links a{padding: 0 10px;}
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.main-box{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.main-box .top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bottom{
+    width: 100%;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 840px){ 
+    .main-box .top{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .top .box{
+        margin: 10px 20px;
+    }
+
+    .bottom{
+        margin-top: 0;
+    }
+}
