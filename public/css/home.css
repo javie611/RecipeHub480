@@ -1,0 +1,191 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #D6B6F2; /* Light purple background */
+}
+
+.container {
+    background-color: #F8D5F7; /* Light pink */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    height: 250px; /* Set the height of the navigation bar */
+    background-color: #F8D5F7; /* Light pink background */
+    display: flex;
+    align-items: center; /* Vertically center content */
+    padding: 0 20px; /* Add horizontal padding */
+    gap: 10px; /* Reduce space between logo and navigation links */
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center; /* Align logo vertically */
+    margin-right: 10px; /* Reduce spacing between logo and navigation links */
+}
+
+.logo img {
+    height: 100%; /* Match logo height to nav bar */
+    max-height: 250px; /* Prevent exceeding nav bar height */
+    width: auto; /* Maintain logo aspect ratio */
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    gap: 15px; /* Reduce space between navigation links */
+    align-items: center; /* Align links vertically with the logo */
+    justify-content: flex-start; /* Keep links close to the logo */
+}
+
+/* Navigation Links Styling */
+.nav-links a {
+    text-decoration: none;
+    color: #000; /* Black */
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #B28CD9; /* Darker purple for hover effect */
+}
+
+.auth-section {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 20px;
+    margin: 0; 
+}
+
+/* Auth Area Styling */
+.auth-area {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    gap: 10px; 
+}
+
+.auth-area.right {
+    align-items: flex-end;
+}
+
+.auth-area p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+.auth-area button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #F8D5F7, #D6B6F2); 
+    transition: all 0.3s ease; 
+}
+
+.auth-area button:hover {
+    opacity: 0.9;
+    transform: scale(1.05); 
+}
+
+
+.login-box {
+    background-color: white; 
+    padding: 20px; 
+    border-radius: 10px; 
+    border: 1px solid #D6B6F2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    text-align: center; 
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    gap: 20px; /* Add spacing between left and right sections */
+}
+
+.left-section {
+    flex: 2;
+}
+
+.right-section {
+    flex: 1;
+    background-color: #F8D5F7; /* Light pink */
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid #D6B6F2; /* Light purple */
+}
+
+.right-section h2 {
+    color: #D6B6F2;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.right-section img.top-recipe-image {
+    max-width: 80%; /* Adjust image width */
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.right-section p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Search Bar */
+.search-bar {
+    padding: 20px 0;
+}
+
+.search-bar input[type="text"] {
+    width: 100%; /* Full width */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #D6B6F2; /* Light purple border */
+    border-radius: 5px;
+}
+
+/* Footer */
+.footer {
+    background-color: #F8D5F7; /* Same light pink as the header */
+    color: #D6B6F2; /* Light purple text */
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 2px solid #D6B6F2; /* Light purple border */
+}
+
+/* Form Buttons */
+form button {
+    color: white;
+    background-color: #D6B6F2; /* Light purple */
+    text-align: center;
+    margin-left: 0;
+}
+
+.button-link{
+    color: white;
+    background-color: #D6B6F2; /* Light purple */
+    text-align: center;
+    margin-left: 0;
+}

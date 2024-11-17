@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -9,26 +15,45 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+    ->name('login'); // Removed guest middleware
 
-Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-Route::post('/register', [RegisteredUserController::class, 'store']);
-
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
-Route::get('/home', function () {
-    return response()->file(public_path('home.html'));
-})->name('home');
+Route::get('/register', [RegisteredUserController::class, 'create'])
+    ->name('register'); // Removed guest middleware
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware('auth')->name('home');
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact'); 
+})->name('contact');
+
+Route::get('/favorites', function () {
+    return view('favorites
+'); 
+})->name('favorites');
+
+Route::get('/posts', function () {
+    return view('posts'); 
+})->name('posts');
+
+Route::get('/recipes', function () {
+    return view('recipes'); 
+})->name('recipes');
+
+Route::get('/shopping', function () {
+    return view('shopping'); 
+})->name('shopping');
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+    
 require __DIR__.'/auth.php';

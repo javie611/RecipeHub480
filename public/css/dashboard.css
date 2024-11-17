@@ -1,0 +1,212 @@
+/* General Styles (with everything named for simplicity) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #f8d5f7; /* Light pink */
+    padding: 15px 30px;
+    border-bottom: 2px solid #d6b6f2; /* Light purple border */
+}
+
+/* Website Name */
+.website-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d6b6f2; /* Light purple */
+    text-transform: uppercase;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    justify-content: flex-start;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #b28cd9; /* Darker purple for hover effect (contrast) */
+}
+
+/* Buttons (Modern Clean Style) */
+.buttons {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-button {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: color 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+}
+
+.nav-button:hover {
+    color: #fff;
+    background-color: #d6b6f2; /* Light purple background on hover */
+    border: 2px solid #d6b6f2; /* Border matches hover background */
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+
+.left-section {
+    flex: 2;
+}
+
+.right-section {
+    flex: 1;
+    background-color: #f8d5f7; /* Light pink background */
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid #d6b6f2; /* Light purple border */
+}
+
+.right-section h2 {
+    color: #d6b6f2;
+    margin-bottom: 15px;
+}
+
+.right-section img.top-recipe-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.right-section p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Search Bar */
+.search-bar {
+    padding: 20px 0;
+}
+
+.search-bar input[type="text"] {
+    width: 100%; /* Full width of the left section */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #d6b6f2; /* Light purple border */
+    border-radius: 5px;
+}
+
+/* Footer */
+.footer {
+    background-color: #f8d5f7; /* Same light pink as the header */
+    color: #d6b6f2; /* Light purple text */
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 2px solid #d6b6f2; /* Light purple border */
+}
+/* Main Content */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    gap: 20px; /* Add spacing between left and right sections */
+}
+
+.left-section {
+    flex: 2;
+}
+
+.right-section {
+    flex: 1;
+    background-color: #f8d5f7; /* Light pink background */
+    text-align: center;
+    padding: 20px;
+    margin-left: 20px; /* Add space from the left section */
+    border-radius: 5px;
+    border: 2px solid #d6b6f2; /* Light purple border */
+}
+
+.right-section h2 {
+    color: #d6b6f2;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.right-section img.top-recipe-image {
+    max-width: 80%; /* Adjust image width to prevent overlap */
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.right-section p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Search Bar */
+.search-bar {
+    padding: 20px 0;
+}
+
+.search-bar input[type="text"] {
+    width: 100%; /* Full width of the left section */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #d6b6f2; /* Light purple border */
+    border-radius: 5px;
+}
+.logo-container {
+    position: relative; /* Make the container positioned relative to the top-bar */
+    top: -30px; /* Move the logo upwards */
+    left: 20px; /* Optional: Adjust horizontally if needed */
+    z-index: 1; /* Ensure the logo appears above other elements */
+  }
+  
+  .logo {
+    max-height: 80px; /* Adjust the size of the logo */
+    flex: 1; /* Flex-grow for responsive design */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Adjust the top-bar to ensure the remaining content stays aligned */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f8c1e1; /* Keep the pink background */
+    padding: 10px 20px;
+    position: relative; /* Ensures other content stays inside */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow */
+  }
+ 
+  .nav-links,
+  .buttons {
+    display: flex;
+    align-items: center;
+  }
+  
