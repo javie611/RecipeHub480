@@ -40,6 +40,13 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
    
+    protected function redirectTo($request)
+{
+    if (!$request->expectsJson()) {
+        return route('login');
+    }
+}
+
     /**
      * Destroy an authenticated session.
      */

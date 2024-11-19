@@ -13,20 +13,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login'); // Removed guest middleware
-
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-
-Route::get('/register', [RegisteredUserController::class, 'create'])
-    ->name('register'); // Removed guest middleware
-
-Route::post('/register', [RegisteredUserController::class, 'store']);
-
 Route::get('/about', function () {
     return view('about');
 })->name('about');
@@ -51,6 +41,20 @@ Route::get('/recipes', function () {
 Route::get('/shopping', function () {
     return view('shopping'); 
 })->name('shopping');
+});
+
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+    ->name('login'); // Removed guest middleware
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
+Route::get('/register', [RegisteredUserController::class, 'create'])
+    ->name('register'); // Removed guest middleware
+
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
