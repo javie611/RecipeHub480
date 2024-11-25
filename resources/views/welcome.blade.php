@@ -17,8 +17,6 @@
         <!-- Register Form -->
         <div class="auth-area">
             <p>Would you like to create an account?</p>
-            <form action="{{ route('register') }}" method="POST">
-                @csrf <!-- CSRF Token -->
                 <button> <a href="{{ route('register') }}" class="button-link">Register</a></button>
             </form>
         </div>
@@ -27,7 +25,6 @@
         <div class="auth-area right">
             <div class="login-box">
                 <p>Already have an account?</p>
-                    @csrf <!-- CSRF Token -->
                     <button>
                     <a href="{{ route('login') }}" class="button-link">Login</a></button>
                 </form>
@@ -36,8 +33,6 @@
         <!-- Logout Button (Only visible to authenticated users) -->
         @auth
         <div class="auth-area">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf <!-- CSRF Token -->
                 <button type="submit">Logout</button>
             </form>
         </div>

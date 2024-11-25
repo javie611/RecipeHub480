@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'RecipeHub')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Default Laravel CSS -->
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}"> 
     @stack('styles') <!-- Placeholder for additional CSS -->
 </head>
 </head>
@@ -23,12 +23,10 @@
         <div class="nav-links">
     <a href="{{ route('dashboard') }}">Home</a>
     <a href="{{ route('recipes') }}">Recipes</a>
-    <a href="{{ route('favorites') }}">Favorites</a>
-    <a href="{{ route('posts') }}">Posts</a>
+        <a href="{{ route('posts') }}">Posts</a>
     <a href="{{ route('shopping') }}">Shopping Lists</a>
     <a href="{{ route('about') }}">About Us</a>
-    <a href="{{ route('contact') }}">Contact</a>
-
+   
     <!-- Display login/logout based on authentication -->
     @guest
         <a href="{{ route('login') }}">Login</a>
@@ -51,14 +49,6 @@
                     alt="Search"
                     width="40"
                     height="40"
-                />
-            </a>
-            <a href="#" class="nav-button" title="Notifications">
-                <img
-                    src="{{ asset('images/icons8-notifications-78.png') }}"
-                    alt="Notifications"
-                    width="45"
-                    height="45"
                 />
             </a>
             <a href="#" class="nav-button" title="Account">

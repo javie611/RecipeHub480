@@ -1,0 +1,97 @@
+/* General Styles */
+body {
+  background: url('pexels-noemiji-16684590.jpg') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+#list-maker {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(5px); /* Optional frosted effect */
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.ingredient-checkbox {
+  margin-right: 10px;
+}
+
+/* Modal Styles */
+#modal {
+  background-color: white;
+  border-radius: 8px;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Print Styles */
+@media print {
+  body * {
+    visibility: hidden; /* Hide everything except the modal */
+  }
+  #modal, #modal * {
+    visibility: visible;
+  }
+  #modal {
+    position: static; /* Ensure the modal is positioned correctly for print */
+    margin: 0 auto;
+    border: none;
+  }
+  button {
+    display: none; /* Hide buttons when printing */
+  }
+}
+
+#shopping-list {
+  background-color: #f3e5f5; /* Light purple background */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Logo Styles */
+#logo {
+  display: block;
+  max-width: 175px; /* Adjust width as needed */
+  margin: 0 auto 25px; /* Center the logo and add spacing */
+}

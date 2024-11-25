@@ -1,0 +1,34 @@
+html, body{
+    background-color: pink;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.marquee-container {
+    overflow: hidden; /* Prevent images from going outside the container */
+    white-space: nowrap; /* Ensure images are in one line */
+    width: 100%; /* Full width of the screen */
+    background-color: #f4f4f4;
+}
+
+.marquee {
+    display: inline-block;
+
+    animation: move-left 30s linear infinite;
+}
+
+.marquee img {
+    width: 400px;
+    height: 400px;
+    margin-right: 50px;
+}
+.marquee img:hover {
+    transform: scale(1.1); /* Slightly enlarge the image on hover */
+}
+@keyframes move-left {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
