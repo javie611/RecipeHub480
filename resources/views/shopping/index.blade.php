@@ -16,6 +16,22 @@
 
     <section id="ingredients-section">
         <h2>Ingredients</h2>
+        <h1>RecipeHub List Maker</h1>
+
+<!-- Success Message -->
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+<section id="ingredients-section">
+    <h2>Ingredients</h2>
+
+    
+    </form>
+</section>
+
 
 
         <!-- Optionally, add an ingredient form -->
