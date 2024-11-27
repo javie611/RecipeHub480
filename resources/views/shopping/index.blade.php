@@ -30,7 +30,7 @@
         <h2>Your Shopping List</h2>
         <ul id="shopping-list">
             <!-- Dynamically updated shopping list -->
-            @foreach (session('shopping', []) as $item)
+            @foreach (session('shopping_list', []) as $item)
                 <li>{{ $item }}</li>
             @endforeach
         </ul>

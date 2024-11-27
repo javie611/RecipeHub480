@@ -13,12 +13,16 @@
         <ul id="ingredients-list">
             @foreach($ingredients as $ingredient)
                 <li>
-                    <input type="checkbox" name="ingredients[]" value="{{ $ingredient['original'] }}">
-                    {{ $ingredient['original'] }}
+                    
+<!-- Checkbox for each ingredient -->
+<input type="checkbox" name="have[]" value="{{ $ingredient['original'] }}" id="ingredient-{{ $loop->index }}">
+                    <label for="ingredient-{{ $loop->index }}">{{ $ingredient['original'] }}</label>
                 </li>
             @endforeach
         </ul>
-        <button type="submit" class="btn btn-primary mt-2">Add to Shopping List</button>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-2">Add Checked Ingredients to Shopping List</button>
     </form>
 </div>
 @endsection

@@ -3,33 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ShoppingLists;
+use App\Models\ShoppingList;
 
 class ShoppingController extends Controller
 {
     public function index()
     {
-        // Fetch shopping lists for the logged-in user (if applicable)
         $shoppingLists = ShoppingList::where('user_id', auth()->id())->get(); 
-
         return view('shopping.index', compact('shoppingLists'));
     }
 
     public function store(Request $request)
     {
-        // Validate and save the shopping list
         $request->validate([
-            'ingredients' => 'required|array',  // Validate that ingredients is an array
+            'ingredients' => 'required|array',
         ]);
 
-        // Save the ingredients to the shopping list table
         $shoppingList = new ShoppingList();
-        $shoppingList->user_id = auth()->id();  // Save the user_id if using authenticated users
-        $shoppingList->ingredients = json_encode($request->input('ingredients')); // Save ingredients as JSON
+        $shoppingList->user_id = auth()->id();
+        $shoppingList->ingredients = json_encode($request->input('ingredients'));
         $shoppingList->save();
 
-        // Redirect to the shopping index page
         return redirect()->route('shopping.index')->with('success', 'Shopping list saved successfully!');
     }
+
+    public function addUncheckedIngredients(Request $request)
+    {
+        session()->forget('shopping_list');
+        \Log::info('Unchecked Ingredients:', $request->all());
+
+    $uncheckedIngredients = $request->input('have', []);
+    \Log::info('Filtered Unchecked Ingredients:', $uncheckedIngredients);
+
+    $existingList = session('shopping_list', []);
+    \Log::info('Session Data Before Saving:', $existingList);
+
+    $updatedList = array_merge($existingList, $uncheckedIngredients);
+    \Log::info('Updated Shopping List:', $updatedList);
+
+    session(['shopping_list' => $updatedList]);
+
+    return redirect()->route('shopping.index')->with('success', 'Unchecked ingredients added to your shopping list!');
 }
+    }
 
