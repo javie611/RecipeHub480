@@ -105,3 +105,29 @@ button:hover {
   border-radius: 4px;
   margin-bottom: 20px;
 }
+/* Styling the shopping list items */
+#shopping-list li {
+  display: flex; /* Align text and button on the same line */
+  justify-content: space-between; /* Add space between the text and button */
+  align-items: center; /* Vertically center-align items */
+  background: #f9f9f9; /* Light background for list items */
+  margin-bottom: 5px; /* Add some space between items */
+  padding: 3px 8px; /* Add padding for better spacing */
+  border-radius: 4px; /* Rounded corners for each item */
+  border: 1px solid #ddd; /* Subtle border for each item */
+}
+
+/* Styling the delete button */
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 2px 8px; /* Smaller padding for compact size */
+  font-size: 12px; /* Smaller font size */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}

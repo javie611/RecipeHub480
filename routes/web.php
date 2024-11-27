@@ -99,6 +99,7 @@ Route::get('/register', [RegisteredUserController::class, 'create'])
 
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
+Route::delete('/shopping/delete/{index}', [ShoppingController::class, 'delete'])->name('shopping.delete');
 
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])

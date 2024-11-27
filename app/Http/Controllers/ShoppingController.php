@@ -64,5 +64,25 @@ class ShoppingController extends Controller
 
     return redirect()->route('shopping.index')->with('success', 'Unchecked ingredients added to your shopping list!');
 }
+// Add the delete method here
+public function delete($index)
+{
+    // Retrieve the current shopping list from the session
+    $shoppingList = session('shopping_list', []);
+
+    // Remove the ingredient at the given index
+    if (isset($shoppingList[$index])) {
+        unset($shoppingList[$index]);
+    }
+
+    // Re-index the array to ensure proper ordering
+    $shoppingList = array_values($shoppingList);
+
+    // Save the updated list back to the session
+    session(['shopping_list' => $shoppingList]);
+
+    // Redirect back with a success message
+    return redirect()->route('shopping.index')->with('success', 'Ingredient removed successfully!');
+}
     }
 

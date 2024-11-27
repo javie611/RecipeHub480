@@ -15,8 +15,7 @@
     <h1>RecipeHub List Maker</h1>
 
     <section id="ingredients-section">
-        <h2>Ingredients</h2>
-        <h1>RecipeHub List Maker</h1>
+        
 
 <!-- Success Message -->
 @if (session('success'))
@@ -46,8 +45,17 @@
         <h2>Your Shopping List</h2>
         <ul id="shopping-list">
             <!-- Dynamically updated shopping list -->
-            @foreach (session('shopping_list', []) as $item)
-                <li>{{ $item }}</li>
+            @foreach (session('shopping_list', []) as $index => $item)
+                <li>{{ $item }}
+                <!-- Add Delete Button -->
+                <form action="{{ route('shopping.delete', $index) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+
+
+                </li>
             @endforeach
         </ul>
         <button id="show-list-button">Show Shopping List</button>
