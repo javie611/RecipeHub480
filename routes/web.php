@@ -47,7 +47,7 @@ Route::get('/recipes/{id}/fetch', [RecipeController::class, 'fetchRecipe'])->nam
 
 Route::post('/shopping', [ShoppingController::class, 'store'])->name('shopping.store');
 Route::get('/shopping', [ShoppingController::class, 'index'])->name('shopping.index');
-
+Route::post('/shopping/store', [ShoppingController::class, 'store'])->name('shopping.store');
 
 
 

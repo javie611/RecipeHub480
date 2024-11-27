@@ -15,6 +15,25 @@ class ShoppingController extends Controller
 
     public function store(Request $request)
     {
+         // Validate the input
+    $request->validate([
+        'ingredient' => 'required|string|max:255', // Ensure ingredient is a valid string
+    ]);
+
+    // Get the new ingredient from the form
+    $newIngredient = $request->input('ingredient');
+
+    // Retrieve the existing shopping list from the session
+    $shoppingList = session('shopping_list', []);
+
+    // Add the new ingredient to the shopping list
+    $shoppingList[] = $newIngredient;
+
+    // Save the updated shopping list back to the session
+    session(['shopping_list' => $shoppingList]);
+
+    // Redirect back with a success message
+    return redirect()->route('shopping.index')->with('success', 'Ingredient added successfully!');
         $request->validate([
             'ingredients' => 'required|array',
         ]);
