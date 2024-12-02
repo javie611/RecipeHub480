@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+console.log('shopping.js loaded!');
+
 @section('title', 'RecipeHub - List Maker')
 
 @push('styles')
@@ -20,21 +22,16 @@
     <section id="shopping-list-section">
         <h2>Your Shopping List</h2>
         <ul id="shopping-list"></ul>
-        <button id="show-list-button">Show Shopping List</button>
+        <button id="show-list-button" type='button'>Save Shopping List</button>
     </section>
-
-    <div id="modal" style="display: none; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -20%); background: white; padding: 20px; border: 1px solid #ddd; z-index: 1000;">
-        <h2>Shopping List</h2>
-        <ul id="modal-list"></ul>
-        <button id="print-modal">Print or Save</button>
-        <button id="close-modal">Close</button>
-    </div>
 </div>
 @endsection
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const shoppingList = document.getElementById('shopping-list');
     const showListButton = document.getElementById('show-list-button');
@@ -43,7 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.getElementById('close-modal');
     const printModalButton = document.getElementById('print-modal');
     const ingredientCheckboxes = document.querySelectorAll('.ingredient-checkbox');
-    
+
+
     // Function to update shopping list dynamically
     const updateShoppingList = () => {
         const selectedIngredients = Array.from(ingredientCheckboxes)
@@ -65,28 +63,33 @@ document.addEventListener('DOMContentLoaded', () => {
     ingredientCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateShoppingList);
     });
+    
 
-    // Show the modal with the shopping list
-    showListButton.addEventListener('click', () => {
-        modalList.innerHTML = '';
-        selectedIngredients.forEach(ingredient => {
-            const li = document.createElement('li');
-            li.textContent = ingredient;
-            modalList.appendChild(li);
-        });
+    if (!showListButton) {
+        console.error('Button with id "show-list-button" not found!');
+        return;
+    }
+
+    showListButton.addEventListener('click', async () => {
+        console.log('Save Shopping List button clicked!');
         
-        modal.style.display = 'block';
-    });
+        // Gather shopping list items
+        const ingredients = Array.from(shoppingList.querySelectorAll('li')).map(li => li.textContent);
+        console.log('Ingredients to save:', ingredients);
 
-    // Close the modal
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
+        // Send ingredients to the backend using Axios
+        try {
+            const response = await axios.post('/save-shopping-list', { ingredients });
+            console.log('Server response:', response.data);
+            alert('Shopping list saved successfully!');
+        } catch (error) {
+            console.error('Error saving shopping list:', error);
+            alert('Failed to save shopping list. Please try again.');
+        }
     });
+    
+    // Show the modal with the shopping list
 
-    // Print or save the modal content
-    printModalButton.addEventListener('click', () => {
-        window.print();
-    });
 });
 </script>
 @endpush

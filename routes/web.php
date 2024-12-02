@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-
+use App\Http\Controllers\ShoppingListController;
 
 Route::get('/fetch-recipe/{id}', [RecipeController::class, 'fetchRecipe'])->name('fetch-recipe');
 
@@ -40,6 +40,10 @@ Route::get('/shopping.index', function () {
 })->name('shopping');
 });
 
+Route::get('/js/shopping.js', function () {
+    return response()->file(resource_path('js/shopping.js'));
+});
+
 Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
 Route::post('/recipes/search', [RecipeController::class, 'search'])->name('recipes.search');
 Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
@@ -49,6 +53,9 @@ Route::post('/shopping', [ShoppingController::class, 'store'])->name('shopping.s
 Route::get('/shopping', [ShoppingController::class, 'index'])->name('shopping.index');
 Route::post('/shopping/store', [ShoppingController::class, 'store'])->name('shopping.store');
 
+
+
+Route::post('/save-shopping-list', [ShoppingListController::class, 'store'])->name('save.shopping.list');
 
 
 Route::post('/shopping/add', [ShoppingController::class, 'addUncheckedIngredients'])->name('shopping.add');
