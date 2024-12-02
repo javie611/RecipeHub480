@@ -23,4 +23,15 @@ $shoppingList->save();
 
         return response()->json(['message' => 'Shopping list saved successfully!']);
     }
+    public function save(Request $request)
+{
+    // Extract the ingredient names from the request
+    $ingredients = $request->input('ingredients');
+
+    // Example: Save to database or session (just the names)
+    session(['shopping_list_saved' => $ingredients]);
+
+    return response()->json(['message' => 'Shopping list saved successfully!']);
+}
+
 }

@@ -5,6 +5,9 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/shopping.css') }}">
 @endpush
+@push('scripts')
+<script src="{{ asset('js/shopping.js') }}"></script>
+@endpush
 
 @section('content')
 <div id="list-maker">
@@ -58,48 +61,53 @@
                 </li>
             @endforeach
         </ul>
+        <button onclick="saveShoppingList()">Save Shopping List</button>
     </section>
 </div>
+<script>
+async function saveShoppingList() {
+    // Gather the text content of each ingredient in the shopping list
+    const shoppingListItems = document.querySelectorAll('#shopping-list li');
+    const ingredients = Array.from(shoppingListItems).map(item => {
+        // Get text content excluding nested elements (e.g., "Delete" button)
+        return item.firstChild.nodeValue.trim();
+    });
+
+    // Check if there are ingredients to save
+    if (ingredients.length === 0) {
+        alert('Your shopping list is empty!');
+        return;
+    }
+
+    try {
+        // Send the cleaned ingredient names to the backend via fetch API
+        const response = await fetch('/save-shopping-list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Laravel CSRF token for security
+            },
+            body: JSON.stringify({ ingredients }) // Send only the ingredient names
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Success:', data);
+            alert('Shopping list saved successfully!');
+        } else {
+            console.error('Failed to save shopping list:', response);
+            alert('Failed to save shopping list. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while saving the shopping list. Please try again.');
+    }
+}
+</script>
+
+<button onclick="saveShoppingList()">Save Shopping List</button>
 @endsection
 
-@push('scripts')
-<script>
-    async function saveShoppingList() {
-        // Gather the ingredients from the shopping list
-        const shoppingListItems = document.querySelectorAll('#shopping-list li');
-        const ingredients = Array.from(shoppingListItems).map(item => item.textContent.trim());
-    
-        // Check if there are ingredients to save
-        if (ingredients.length === 0) {
-            alert('Your shopping list is empty!');
-            return;
-        }
-    
-        try {
-            // Send the ingredients to the backend via fetch API
-            const response = await fetch('/save-shopping-list', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Laravel CSRF token for security
-                },
-                body: JSON.stringify({ ingredients })
-            });
-    
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Success:', data);
-                alert('Shopping list saved successfully!');
-            } else {
-                console.error('Failed to save shopping list:', response);
-                alert('Failed to save shopping list. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while saving the shopping list. Please try again.');
-        }
-    }
-    </script>
-    
-    <button onclick="saveShoppingList()">Save Shopping List</button>
-@endpush
+
+
+

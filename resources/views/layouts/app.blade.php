@@ -70,7 +70,8 @@
     <div class="auth-section">
         @yield('auth-section')
     </div>
-    @stack('scripts')
+    
 </body>
+@stack('scripts')
 </html>
 
