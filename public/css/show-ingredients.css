@@ -1,0 +1,124 @@
+/* Container Styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Recipe Title */
+.container h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #c99cee;
+}
+
+/* Recipe Image */
+.img-fluid {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ingredients Section */
+.container h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Ingredients List */
+#ingredients-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#ingredients-list li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Checkbox Styling */
+#ingredients-list li input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Makes the checkbox larger for better visibility */
+}
+
+/* Label Styling */
+#ingredients-list li label {
+    cursor: pointer;
+    color: #444;
+}
+
+/* Highlight Checked Ingredients */
+#ingredients-list li input[type="checkbox"]:checked + label {
+    text-decoration: underline;
+    color: #888;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    background-color: #c99cee;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #c99cee;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    #ingredients-list li {
+        font-size: 1em;
+    }
+
+    button[type="submit"] {
+        font-size: 1em;
+    }
+}
+body {
+    font-family: Arial, sans-serif;
+    background: url('../images/cartoon-cooking-image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Optional overlay effect for readability */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Adjust opacity for better readability */
+    z-index: -1;
+}

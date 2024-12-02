@@ -62,7 +62,7 @@ class ShoppingController extends Controller
 
     session(['shopping_list' => $updatedList]);
 
-    return redirect()->route('shopping.index')->with('success', 'Unchecked ingredients added to your shopping list!');
+    return redirect()->route('shopping.index')->with('success', 'Checked ingredients added to your shopping list!');
 }
 // Add the delete method here
 public function delete($index)

@@ -2,6 +2,10 @@
 
 @section('title', 'Recipe Search')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/search-shopping.css') }}">
+@endpush
+
 @section('content')
 <div class="container">
     <h1>Search for Recipes</h1>

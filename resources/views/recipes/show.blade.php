@@ -3,6 +3,8 @@
 @section('title', $recipe['title'])
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/show-ingredients.css') }}">
+
 <div class="container">
     <h1>{{ $recipe['title'] }}</h1>
     <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}" class="img-fluid mb-4">
