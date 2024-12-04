@@ -61,7 +61,7 @@
                 </li>
             @endforeach
         </ul>
-        <button onclick="saveShoppingList()">Save Shopping List</button>
+        
     </section>
 </div>
 <script>

@@ -7,6 +7,7 @@
     <!-- Additional CSS specific to this view -->
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
 @endpush
+
 @section('content')
     <h1>Featured Dishes of the Week</h1>
     <h2>Featuring: Spicy Pasta, Street Tacos, and Chicken Tikka Masala</h2>
