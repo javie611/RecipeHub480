@@ -18,7 +18,7 @@
     <div class="slideshow-container">
         @foreach($recipes as $index => $recipe)
             <div class="slide fade" data-index="{{ $index }}">
-                <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}" style="width:40%">
+                <img src="{{ $recipe['image'] ?? asset('images/default.jpg') }}" alt="{{ $recipe['title'] }}" style="width:40%">
                 <h3>{{ $recipe['title'] }}</h3>
             </div>
         @endforeach

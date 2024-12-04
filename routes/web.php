@@ -56,10 +56,12 @@ Route::post('/shopping/store', [ShoppingController::class, 'store'])->name('shop
 
 
 Route::post('/save-shopping-list', [ShoppingListController::class, 'store'])->name('save.shopping.list');
+Route::get('/recipes/{id}/fetch', [RecipeController::class, 'fetchRecipe'])->name('recipes.fetch');
 
 
 Route::post('/shopping/add', [ShoppingController::class, 'addUncheckedIngredients'])->name('shopping.add');
-
+Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
+Route::get('/recipes/{id}/ingredients', [RecipeController::class, 'ingredients'])->name('recipes.ingredients');
 
 Route::post('/shopping/recipe', function (Request $request) {
     $recipeId = $request->input('recipe_id');

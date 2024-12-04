@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class RecipeController extends Controller
 {
@@ -23,12 +24,13 @@ class RecipeController extends Controller
             ]);
 
             if ($response->successful()) {
-                return response()->json($response->json(), 200);
+                // Pass the recipe data to the fetch view
+                return view('recipes.fetch', ['recipe' => $response->json()]);
             } else {
-                return response()->json(['error' => 'Unable to fetch recipe'], 400);
+                return redirect()->route('recipes.index')->with('error', 'Unable to fetch recipe');
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return redirect()->route('recipes.index')->with('error', 'Error: ' . $e->getMessage());
         }
     }
     public function search(Request $request)
@@ -74,18 +76,20 @@ public function show($id)
 }
 public function dashboard()
 {
-    $apiKey = config('services.spoonacular.api_key'); // Fetch API key from config/services.php
-    $response = Http::get("https://api.spoonacular.com/recipes/random", [
-        'apiKey' => $apiKey,
-        'number' => 3, // Fetch 3 random recipes
-    ]);
+    $recipes = Cache::remember('daily_recipes', 86400, function () {
+        $apiKey = config('services.spoonacular.api_key');
+        $response = Http::get("https://api.spoonacular.com/recipes/random", [
+            'apiKey' => $apiKey,
+            'number' => 3,
+        ]);
 
-    if ($response->successful()) {
-        $recipes = $response->json()['recipes'];
-        return view('dashboard', compact('recipes')); // Updated view name
-    }
+        if ($response->successful()) {
+            return $response->json()['recipes'];
+        }
 
-    return view('dashboard', ['recipes' => []]); // Pass empty array if request fails
+        return [];
+    });
+
+    return view('dashboard', compact('recipes'));
 }
-
 }
