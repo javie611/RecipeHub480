@@ -94,6 +94,8 @@ Route::post('/shopping/save', [ShoppingController::class, 'saveShoppingList'])->
 Route::get('/shopping', [ShoppingController::class, 'index'])->name('shopping.index');
 
 
+Route::get('/dashboard', [RecipeController::class, 'dashboard'])->name('dashboard');
+
 
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])

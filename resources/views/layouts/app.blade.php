@@ -23,9 +23,8 @@
         <div class="nav-links">
     <a href="{{ route('dashboard') }}">Home</a>
     <a href="{{ route('recipes') }}">Recipes</a>
-        <a href="{{ route('posts') }}">Posts</a>
     <a href="{{ route('shopping') }}">Shopping Lists</a>
-    <a href="{{ route('about') }}">About Us</a>
+    <a href="{{ route('about') }}">About</a>
    
     <!-- Display login/logout based on authentication -->
     @guest
@@ -43,7 +42,7 @@
 </div>
         <div class="buttons">
             <!-- icons with custom images -->
-            <a href="#" class="nav-button" title="Search">
+            <a href="{{ route('recipes') }}" class="nav-button" title="Search">
                 <img
                     src="{{ asset('images/icons8-search-128.png') }}"
                     alt="Search"

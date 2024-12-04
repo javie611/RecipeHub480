@@ -72,4 +72,20 @@ public function show($id)
         return redirect()->route('recipes.index')->with('error', 'Unable to fetch recipe details.');
     }
 }
+public function dashboard()
+{
+    $apiKey = config('services.spoonacular.api_key'); // Fetch API key from config/services.php
+    $response = Http::get("https://api.spoonacular.com/recipes/random", [
+        'apiKey' => $apiKey,
+        'number' => 3, // Fetch 3 random recipes
+    ]);
+
+    if ($response->successful()) {
+        $recipes = $response->json()['recipes'];
+        return view('dashboard', compact('recipes')); // Updated view name
+    }
+
+    return view('dashboard', ['recipes' => []]); // Pass empty array if request fails
+}
+
 }
