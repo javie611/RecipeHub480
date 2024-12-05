@@ -25,6 +25,9 @@
                         </ul>
                     </div>
                 @endif
+                <div class="logo-container">
+    <img src="{{ asset('images/updatelogo.png') }}" alt="Company Logo" class="company-logo">
+</div>
 
                 <!-- Username Field -->
                 <div class="field input">
