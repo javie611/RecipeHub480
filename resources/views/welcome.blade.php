@@ -39,26 +39,31 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials">
-        <h2>What Our Users Say</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <img src="{{ asset('images/sushiathome.jpg') }}" alt="User 1">
-                <p>"Sushi at home? cant say no to that!"</p>
-                <span>- Itzel C.</span>
-            </div>
-            <div class="testimonial-card">
-                <img src="{{ asset('images/pizza-homw-page.jpg') }}" alt="User 2">
-                <p>"Helped me create my fave Pizza!"</p>
-                <span>- Jakob T.</span>
-            </div>
-            <div class="testimonial-card">
-                <img src="{{ asset('images/Mexican-Street-Tacos-Recipe-Card.jpg') }}" alt="User 3">
-                <p>"I was able to make tacos for the first time at my new place, also the shopping list feature is a lifesaver."</p>
-                <span>- Des S.</span>
-            </div>
+<section class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-grid">
+        <!-- User Story 1 -->
+        <div class="testimonial-card">
+            <img src="{{ asset('images/sushiathome.jpg') }}" alt="Sushi at Home">
+            <p>"Sushi at home? Can't say no to that!"</p>
+            <span>- Itzel C.</span>
         </div>
-    </section>
+        <!-- User Story 2 -->
+        <div class="testimonial-card">
+            <img src="{{ asset('images/pizza-homw-page.jpg') }}" alt="Homemade Pizza">
+            <p>"Helped me create my fave Pizza!"</p>
+            <span>- Jakob T.</span>
+        </div>
+        <!-- User Story 3 -->
+        <div class="testimonial-card">
+            <img src="{{ asset('images/Mexican-Street-Tacos-Recipe-Card.jpg') }}" alt="Mexican Street Tacos">
+            <p>"I was able to make tacos for the first time at my new place. Also, the shopping list feature is a lifesaver."</p>
+            <span>- Des S.</span>
+        </div>
+        <!-- Add More Stories Dynamically -->
+    </div>
+</section>
+
 
     <!-- Footer -->
     <footer class="footer">

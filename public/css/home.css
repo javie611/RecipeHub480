@@ -6,6 +6,13 @@ body {
     background-color: #f3e5f5; /* Light background for contrast */
 }
 
+.container {
+    max-width: 1200px; /* Set a max width for the container */
+    width: 90%; /* Ensure it uses 90% of the screen width */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Hero Section */
 .hero {
     position: relative; /* Positioning context for the overlay */
     height: 18vh;
@@ -43,7 +50,7 @@ body {
 .cta-button {
     background: #B28CD9;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 5px;
     text-decoration: none;
     font-size: 18px;
@@ -56,7 +63,6 @@ body {
     background: #9370DB;
     transform: scale(1.05);
 }
-
 
 .hero h1 {
     font-size: 3rem;
@@ -88,7 +94,7 @@ body {
     background-color: #F8D5F7;
     padding: 50px 20px;
     text-align: center;
-    color: #955fc7
+    color: #955fc7;
 }
 
 .features h2 {
@@ -97,10 +103,10 @@ body {
 }
 
 .features-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
     gap: 20px;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
 .feature-card {
@@ -109,17 +115,13 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.feature-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-}
 
-/* Recipe Section */
+/* User Stories Section */
 .testimonials {
     background-color: white;
     padding: 50px 20px;
@@ -132,34 +134,44 @@ body {
     margin-bottom: 30px;
 }
 
-/* Grid Layout for Recipe Cards */
+/* Dynamic Grid for User Stories */
 .testimonial-grid {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center the grid */
+    align-items: start; /* Align items at the top */
+    margin: 0 auto; /* Center the grid container */
+    max-width: 1200px; /* Restrict the maximum width */
 }
 
-/* Recipe Card */
+/* Individual Cards */
 .testimonial-card {
     background: #F8D5F7; /* Light pink */
     padding: 20px;
     border-radius: 10px;
-    width: 300px; /* Consistent card width */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add some depth */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease; /* Add hover animation */
 }
 
-/* Recipe Image */
+.testimonial-card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Images in Cards */
 .testimonial-card img {
-    width: 100%; /* Full width of the card */
+    width: 100%;
     height: 200px; /* Fixed height for uniformity */
     border-radius: 10px; /* Rounded corners */
-    object-fit: cover; /* Ensures the image fills the area without distortion */
+    object-fit: cover; /* Ensures the image fits the container */
     margin-bottom: 15px;
 }
 
-/* Text Below Recipe Image */
+/* Text Content */
 .testimonial-card p {
     font-size: 1rem;
     font-weight: bold;
@@ -172,11 +184,32 @@ body {
     color: #666;
 }
 
-
-/* Footer */
-.footer {
-    background-color: #D6B6F2;
-    color: white;
+/* Responsive Spacing for Larger Screens */
+@media (min-width: 768px) {
+    .testimonial-grid {
+        padding: 20px;
+    }
+    .testimonial-card {
+        padding: 30px;
+    }
+}
+/* Adjust testimonial card width for responsiveness */
+.testimonial-card {
+    background: #F8D5F7; /* Light pink */
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
-    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add some depth */
+    flex: 1 1 calc(30% - 20px); /* Dynamic width: 30% of parent minus gap */
+    max-width: 400px; /* Optional: limit max width */
+    min-width: 200px; /* Optional: set a minimum width */
+    margin: 10px; /* Add spacing around cards */
+}
+
+/* Ensure grid adjusts dynamically */
+.testimonial-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center-align the cards */
 }
