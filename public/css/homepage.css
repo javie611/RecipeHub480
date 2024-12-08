@@ -3,101 +3,90 @@ body {
     margin: 0;
     background-color: lightpink;
 }
-
-/* Slideshow and ingredients container */
-.slideshow-ingredients-container {
-    display: flex; /* Align items horizontally */
-    justify-content: space-between; /* Add space between slideshow and ingredients */
-    align-items: flex-start; /* Align items to the top */
-    gap: 20px; /* Space between the sections */
-    margin: 20px auto;
-    max-width: 1200px; /* Limit overall container width */
-}
-
-/* Slideshow container */
-.slideshow-container {
-    flex: 2; /* Slideshow takes two-thirds of the width */
+ /* Slideshow styles */
+ .slideshow-container {
     position: relative;
     max-width: 100%;
-    overflow: hidden;
+    margin: auto;
 }
 
-/* Individual slides */
 .slide {
-    display: none; /* Hide slides by default */
+    display: none;
+    text-align: center;
 }
 
-img {
-    vertical-align: middle;
-    width: 100%; /* Ensure images fill their container */
+.slide img {
+    width: 50%;
+    border-radius: 10px;
 }
 
-/* Navigation buttons */
-.prev,
-.next {
+.prev, .next {
+    cursor: pointer;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;
+    width: auto;
+    margin-top: -22px;
     padding: 16px;
     color: white;
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
-    border-radius: 50%; /* Rounded buttons */
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
     user-select: none;
-    z-index: 10; /* Ensure buttons are above the slides */
-}
-
-.prev:hover,
-.next:hover {
-    background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
-}
-
-.prev {
-    left: 0;
 }
 
 .next {
     right: 0;
+    border-radius: 3px 0 0 3px;
 }
 
-/* Fade animation for slides */
-.fade {
-    animation: fade 1s ease-in-out;
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
 }
 
-@keyframes fade {
-    from {
-        opacity: 0.4;
-    }
-    to {
-        opacity: 1;
-    }
+/* Flip box styles */
+.flip-box {
+    background-color: transparent;
+    width: 300px;
+    height: 200px;
+    perspective: 1000px;
+    margin: auto;
 }
 
-/* Ingredients section styling */
-.ingredients {
-    flex: 1; /* Ingredients take one-third of the width */
-    background-color: rgb(163, 206, 232);
-    padding: 20px; /* Add space inside the ingredients box */
-    border: 1px solid #ddd; /* Light border for separation */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+.flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
 }
 
-.ingredients h3 {
-    margin-bottom: 15px;
-    font-size: 1.5em; /* Larger font for the heading */
+.flip-box:hover .flip-box-inner {
+    transform: rotateY(180deg);
 }
 
-.ingredients ul {
-    list-style: disc inside; /* Bullets inside the box */
-    padding: 0;
-    margin: 0;
-    font-size: 1em; /* Standard font size */
+.flip-box-front, .flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 10px;
 }
 
-.ingredients ul li {
-    margin-bottom: 10px; /* Space between list items */
+.flip-box-front {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.flip-box-back {
+    background-color: #2196F3;
+    color: white;
+    transform: rotateY(180deg);
 }
