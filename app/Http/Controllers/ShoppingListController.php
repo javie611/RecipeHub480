@@ -33,5 +33,16 @@ $shoppingList->save();
 
     return response()->json(['message' => 'Shopping list saved successfully!']);
 }
+public function index()
+{
+    $shoppingLists = ShoppingList::where('user_id', auth()->id())->get();
+
+    foreach ($shoppingLists as $list) {
+        $list->ingredients = json_decode($list->ingredients, true); // Ensure it's an array
+    }
+
+    return view('saved-lists', compact('shoppingLists'));
+}
+
 
 }

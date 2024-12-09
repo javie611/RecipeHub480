@@ -1,64 +1,61 @@
-body {
+body { 
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: lightpink;
-}
- /* Slideshow styles */
- .slideshow-container {
-    position: relative;
-    max-width: 100%;
-    margin: auto;
+    background: url('/images/cartoon-cooking-image.jpg') no-repeat center center fixed;
+    background-size: cover; /* Ensure background image covers the whole screen */
+    color: #955fc7;
+    background-attachment: fixed; /* Prevents the background from moving */
+    background-repeat: no-repeat;
+
 }
 
-.slide {
-    display: none;
+.homepage-container h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+    font-weight: bold;
+    background-color: #FFB6C1;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+.slideshow-container {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
     text-align: center;
 }
 
-.slide img {
-    width: 50%;
-    border-radius: 10px;
+.slideshow-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
 }
 
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-}
-
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-}
-
-/* Flip box styles */
+/* Flip box container */
 .flip-box {
-    background-color: transparent;
-    width: 300px;
-    height: 200px;
+    
     perspective: 1000px;
-    margin: auto;
+    width: 45%;
+    height: 300px; /* Adjust the height to match content */
+    margin: 0 auto; /* Center the flip box */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    position: relative;
+    background-color: transparent; /* Ensure the container has no interfering color */
 }
 
 .flip-box-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
-    transition: transform 0.6s;
+    transition: transform 0.8s ease-in-out;
     transform-style: preserve-3d;
 }
 
@@ -66,27 +63,33 @@ body {
     transform: rotateY(180deg);
 }
 
-.flip-box-front, .flip-box-back {
+/* Common styles for front and back */
+.flip-box-front,
+.flip-box-back {
+    color: purple;
+    background-color: #f1bfca !important; /* Ensures the color is applied */
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow-y: auto;
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center; /* Center the content vertically */
     padding: 20px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    text-align: center;
 }
 
-.flip-box-front {
-    background-color: #4CAF50;
-    color: white;
-}
-
+/* Back face (Instructions) */
 .flip-box-back {
-    background-color: #2196F3;
-    color: white;
     transform: rotateY(180deg);
+    text-align: left; /* Align all text to the left */
+    padding: 10px; /* Add padding for consistent spacing */
+    overflow-y: auto; /* Ensure scrolling for overflowing content */
+    line-height: 1.6; /* Adjust line spacing for readability */
+    word-wrap: break-word; /* Prevent long words from breaking the layout */
 }
