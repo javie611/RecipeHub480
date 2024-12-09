@@ -112,3 +112,7 @@ button#prev-btn:hover,
 button#next-btn:hover {
     background-color: #b3a0e0; /* Darker purple on hover */
 }
+
+.flip-box {
+    transition: transform 1.0s ease; /* Increase time for smoother transitions */
+  }
