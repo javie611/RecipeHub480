@@ -22,7 +22,6 @@
         </div>
         <div class="nav-links">
     <a href="{{ route('dashboard') }}">Home</a>
-    <a href="{{ route('recipes') }}">Recipes</a>
     <a href="{{ route('shopping') }}">Shopping Lists</a>
     <a href="{{ route('about') }}">About</a>
    
