@@ -12,8 +12,12 @@
 
     <div class="content-wrapper" style="display: flex;">
         <!-- Slideshow on the left -->
-        <div class="slideshow-container" style="flex: 1; padding-right: 20px;">
-            <div id="slideshow"></div>
+        <div class="slideshow-container" style="flex: 1; padding-right: 20px; position: relative;">
+            <div id="recipe-image" style="text-align: center;"></div>
+            <div style="display: flex; justify-content: center; margin-top: 10px;">
+                <button id="prev-btn" style="margin-right: 10px;">Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
         </div>
 
         <!-- Flip box on the right -->
@@ -32,91 +36,97 @@
 @push('scripts')
 <script>
 async function loadContent() {
-    const slideshowContainer = document.getElementById('slideshow');
-    const flipBoxFront = document.getElementById('flip-box-front');
-    const flipBoxBack = document.getElementById('flip-box-back');
-
     const apiKey = '34a42aa77a9b4a40b6388043accbe0bb';
-    const cacheKey = 'dailyRecipe';
-    const cacheTimestampKey = 'dailyRecipeTimestamp';
+    const cacheKey = 'dailyRecipes';
+    const cacheTimestampKey = 'dailyRecipesTimestamp';
     const oneDayInMillis = 24 * 60 * 60 * 1000; // 1 day in milliseconds
-    const randomRecipeEndpoint = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`; // Random recipe endpoint
+    const randomRecipeEndpoint = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=3`; // Fetch 3 recipes
+
+    const now = Date.now();
+    let recipes = [];
 
     try {
-        const cachedRecipe = localStorage.getItem(cacheKey);
+        const cachedRecipes = localStorage.getItem(cacheKey);
         const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
 
-        const now = Date.now();
-
-        if (cachedRecipe && cachedTimestamp && now - parseInt(cachedTimestamp) < oneDayInMillis) {
-            console.log('Using cached recipe');
-            populateRecipe(JSON.parse(cachedRecipe));
+        if (cachedRecipes && cachedTimestamp && now - parseInt(cachedTimestamp) < oneDayInMillis) {
+            console.log('Using cached recipes');
+            recipes = JSON.parse(cachedRecipes);
         } else {
-            console.log('Fetching new random recipe');
+            console.log('Fetching new recipes');
             const response = await fetch(randomRecipeEndpoint);
             const data = await response.json();
-            const recipe = data.recipes[0]; // Random endpoint returns an array of recipes
+            recipes = data.recipes;
 
-            localStorage.setItem(cacheKey, JSON.stringify(recipe));
+            // Cache the recipes and timestamp
+            localStorage.setItem(cacheKey, JSON.stringify(recipes));
             localStorage.setItem(cacheTimestampKey, now.toString());
-
-            populateRecipe(recipe);
         }
+
+        setupSlideshow(recipes);
     } catch (error) {
-        console.error('Error fetching recipe:', error);
-        slideshowContainer.innerHTML = `<p>Error loading slideshow content. Please try again later.</p>`;
-        flipBoxFront.innerHTML = `<p>Error loading recipe details.</p>`;
-        flipBoxBack.innerHTML = `<p>Error loading recipe details.</p>`;
+        console.error('Error fetching recipes:', error);
+        document.getElementById('recipe-image').innerHTML = `<p>Error loading recipes. Please try again later.</p>`;
     }
 }
 
-function populateRecipe(data) {
-    const slideshowContainer = document.getElementById('slideshow');
+function setupSlideshow(recipes) {
+    const recipeImageContainer = document.getElementById('recipe-image');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
     const flipBoxFront = document.getElementById('flip-box-front');
     const flipBoxBack = document.getElementById('flip-box-back');
 
-    // Populate slideshow with images
-    if (data.image) {
-        const img = document.createElement('img');
-        img.src = data.image;
-        img.alt = data.title || 'Recipe Image';
-        img.style = 'max-width: 100%; height: auto;';
-        slideshowContainer.appendChild(img);
-    } else {
-        slideshowContainer.innerHTML = `<p>No image available</p>`;
-    }
+    let currentIndex = 0;
 
-    // Populate flip box front with title and ingredients
-    if (data.extendedIngredients && data.extendedIngredients.length > 0) {
-        const ingredientsList = data.extendedIngredients
+    // Function to display a recipe
+    function displayRecipe(index) {
+        const recipe = recipes[index];
+
+        // Update image
+        recipeImageContainer.innerHTML = `<img src="${recipe.image}" alt="${recipe.title}" style="max-width: 100%; height: auto;">`;
+
+        // Update flip box front with ingredients
+        const ingredientsList = recipe.extendedIngredients
             .map(ingredient => `<li>${ingredient.original}</li>`)
             .join('');
         flipBoxFront.innerHTML = `
-            <h2 style="margin-bottom: 15px; font-size: 24px;">${data.title}</h2>
+            <h2 style="margin-bottom: 15px; font-size: 24px;">${recipe.title}</h2>
             <h3 style="margin-bottom: 10px; font-size: 20px;">Ingredients</h3>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 ${ingredientsList}
             </ul>
         `;
-    } else {
-        flipBoxFront.innerHTML = `<p>No ingredients available.</p>`;
+
+        // Update flip box back with instructions
+        if (recipe.analyzedInstructions && recipe.analyzedInstructions.length > 0) {
+            const steps = recipe.analyzedInstructions[0].steps
+                .map((step, index) => `<li> ${step.step}</li>`)
+                .join('');
+            flipBoxBack.innerHTML = `
+                <h3 style="margin-bottom: 10px; font-size: 20px;">Instructions</h3>
+                <ul style="list-style: decimal; padding: 0 20px; margin: 0;">
+                    ${steps}
+                </ul>
+            `;
+        } else {
+            flipBoxBack.innerHTML = `<p>No instructions available.</p>`;
+        }
     }
 
-    // Populate flip box back with instructions
-    if (data.analyzedInstructions && Array.isArray(data.analyzedInstructions) && data.analyzedInstructions.length > 0) {
-        const steps = data.analyzedInstructions[0].steps
-            .map((step, index) => `<li> ${step.step}</li>`)
-            .join('');
-        flipBoxBack.innerHTML = `
-            <h3 style="margin-bottom: 10px; font-size: 20px;">Instructions</h3>
-            <ul style="list-style: decimal; padding: 0 20px; margin: 0;">
-                ${steps}
-            </ul>
-        `;
-    } else {
-        console.log('No instructions available for this recipe.');
-        flipBoxBack.innerHTML = `<p>No instructions available.</p>`;
-    }
+    // Display the first recipe initially
+    displayRecipe(currentIndex);
+
+    // Add event listeners for buttons
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + recipes.length) % recipes.length;
+        displayRecipe(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % recipes.length;
+        displayRecipe(currentIndex);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', loadContent);

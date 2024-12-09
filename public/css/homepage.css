@@ -9,6 +9,7 @@ body {
 
 }
 
+
 .homepage-container h1 {
     margin: 0;
     font-size: 2em;
@@ -26,7 +27,7 @@ body {
 .slideshow-container {
     width: 100%;
     height: auto;
-    border: 1px solid #ddd;
+    border: none;
     padding: 10px;
     text-align: center;
 }
@@ -45,7 +46,7 @@ body {
     width: 45%;
     height: 300px; /* Adjust the height to match content */
     margin: 0 auto; /* Center the flip box */
-    border: 1px solid #ddd;
+    border: none;
     border-radius: 8px;
     position: relative;
     background-color: transparent; /* Ensure the container has no interfering color */
@@ -92,4 +93,22 @@ body {
     overflow-y: auto; /* Ensure scrolling for overflowing content */
     line-height: 1.6; /* Adjust line spacing for readability */
     word-wrap: break-word; /* Prevent long words from breaking the layout */
+}
+
+button#prev-btn,
+button#next-btn {
+    background-color: #dcd4f7; /* Light purple */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Button padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+/* Hover effect for buttons */
+button#prev-btn:hover,
+button#next-btn:hover {
+    background-color: #b3a0e0; /* Darker purple on hover */
 }
