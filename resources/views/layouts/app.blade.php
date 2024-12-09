@@ -21,6 +21,11 @@
             />
         </div>
         <div class="nav-links">
+            <form action="{{ route('recipes.search') }}" method="POST" class="mb-4">
+                @csrf
+                <input type="text" name="query" placeholder="Search for a recipe..." class="form-control" value="{{ $query ?? '' }}" required>
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </form>
     <a href="{{ route('dashboard') }}">Home</a>
     <a href="{{ route('shopping') }}">Shopping Lists</a>
     <a href="{{ route('about') }}">About</a>
