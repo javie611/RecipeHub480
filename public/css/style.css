@@ -8,20 +8,28 @@
 }
 
 body {
-    background: url('/images/cartoon-cooking-image.jpg') no-repeat center center fixed;
+    font-family: Arial, sans-serif;
+    background: url('../images/cartoon-cooking-image.jpg') no-repeat center center fixed;
     background-size: cover;
-    
-}
-/* Optional overlay effect for readability */
-body::before {
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    position: relative; / Enables positioning context for the overlay 
+    overflow: auto;   / Prevents scrolling issues caused by the overlay /
+  }
+  
+  body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8); /* Adjust opacity for better readability */
+    background: rgba(255, 255, 255, 0.8); 
     z-index: -1;
+    pointer-events: none;
   }
   .logo-container {
     text-align: center;
