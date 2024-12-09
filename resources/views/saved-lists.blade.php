@@ -7,11 +7,15 @@
     @forelse($shoppingLists as $list)
         <li>
             Ingredients: {{ is_array($list->ingredients) ? implode(', ', $list->ingredients) : 'Invalid data' }}
+            <form action="{{ route('shopping-lists.destroy', $list->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this shopping list?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
         </li>
     @empty
         <p>No saved shopping lists found.</p>
     @endforelse
-</ul>
-
+    </ul>
 </div>
 @endsection

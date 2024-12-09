@@ -9,10 +9,17 @@ body {
 .top-bar {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: left;
     background-color: #f8d5f7; /* Light pink */
     padding: 15px 30px;
     border-bottom: 2px solid #d6b6f2; /* Light purple border */
+}
+
+form input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 /* Website Name */
