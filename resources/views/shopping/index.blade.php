@@ -34,13 +34,17 @@
     </form>
 </section>
 
-
+        <form id="shopping-list-form">
+         <label for="shopping-list-name">List Name:</label>
+            <input type="text" id="shopping-list-name" name="name" placeholder="Enter list name" required>
+        </form>
 
         <!-- Optionally, add an ingredient form -->
         <form action="{{ route('shopping.store') }}" method="POST">
             @csrf
             <input type="text" name="ingredient" placeholder="Add your own ingredient" required />
             <button type="submit">Add Ingredient</button>
+            
         </form>
     </section>
 
@@ -66,6 +70,15 @@
 </div>
 <script>
 async function saveShoppingList() {
+    // Get the list name from the input field
+    const listName = document.querySelector('#shopping-list-name').value.trim();
+
+    // Validate the list name
+    if (!listName) {
+        alert('Please enter a name for your shopping list.');
+        return;
+    }
+
     // Gather the text content of each ingredient in the shopping list
     const shoppingListItems = document.querySelectorAll('#shopping-list li');
     const ingredients = Array.from(shoppingListItems).map(item => {
@@ -80,20 +93,26 @@ async function saveShoppingList() {
     }
 
     try {
-        // Send the cleaned ingredient names to the backend via fetch API
+        // Send the list name and ingredients to the backend via fetch API
         const response = await fetch('/save-shopping-list', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}' // Laravel CSRF token for security
             },
-            body: JSON.stringify({ ingredients }) // Send only the ingredient names
+            body: JSON.stringify({
+                name: listName,  // Include the list name
+                ingredients     // Send the ingredients
+            })
         });
 
         if (response.ok) {
             const data = await response.json();
             console.log('Success:', data);
             alert('Shopping list saved successfully!');
+            // Optionally, clear the form after successful save
+            document.querySelector('#shopping-list-name').value = '';
+            document.querySelector('#shopping-list').innerHTML = '';
         } else {
             console.error('Failed to save shopping list:', response);
             alert('Failed to save shopping list. Please try again.');
@@ -103,9 +122,11 @@ async function saveShoppingList() {
         alert('An error occurred while saving the shopping list. Please try again.');
     }
 }
+
 </script>
 
-<button onclick="saveShoppingList()">Save Shopping List</button>
+<button type="button" onclick="saveShoppingList()">Save Shopping List</button>
+
 @endsection
 
 

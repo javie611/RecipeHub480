@@ -6,6 +6,7 @@
     <ul>
     @forelse($shoppingLists as $list)
         <li>
+            <strong>{{ $list->name }}</strong>: 
             Ingredients: {{ is_array($list->ingredients) ? implode(', ', $list->ingredients) : 'Invalid data' }}
             <form action="{{ route('shopping-lists.destroy', $list->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this shopping list?');">
                 @csrf

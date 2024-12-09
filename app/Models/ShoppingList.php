@@ -9,7 +9,7 @@ class ShoppingList extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['ingredients'];
+    protected $fillable = ['name', 'ingredients'];
 
     protected $casts = [
         'ingredients' => 'array',
