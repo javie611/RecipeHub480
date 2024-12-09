@@ -13,12 +13,13 @@
     <!-- Top Navigation Bar -->
     <div class="top-bar">
         <div class="logo">
-        <img
+            <a href="{{ route('welcome') }}">
+        <img 
                 src="{{ asset('images/updatelogo.png') }}"
                 alt="RecipeHub Logo"
                 width="110"
                 height="110"
-            />
+            /> </a>
         </div>
         <div class="nav-links">
             <form action="{{ route('recipes.search') }}" method="POST" class="mb-4">

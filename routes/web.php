@@ -45,6 +45,10 @@ Route::get('/shopping.index', function () {
 })->name('shopping');
 });
 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
 Route::get('/js/shopping.js', function () {
     return response()->file(resource_path('js/shopping.js'));
 });
