@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\ShoppingListController;
+use App\Http\Controllers\UserController;
 
 Route::get('/fetch-recipe/{id}', [RecipeController::class, 'fetchRecipe'])->name('fetch-recipe');
 
@@ -26,6 +27,10 @@ Route::get('/dashboard', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+Route::get('/profile.profile', function () {
+    return view('profile.profile');
+})->name('profile');
 
 Route::get('/posts', function () {
     return view('posts'); 
@@ -97,6 +102,15 @@ Route::get('/shopping', [ShoppingController::class, 'index'])->name('shopping.in
 
 
 Route::get('/dashboard', [RecipeController::class, 'dashboard'])->name('dashboard');
+
+// Display the profile page
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+// Update profile information
+Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+// Change password
+Route::post('/profile/change-password', [UserController::class, 'changePassword'])->name('profile.change-password');
+// View saved lists
+Route::get('/profile/saved-lists', [ShoppingListController::class, 'index'])->name('profile.saved-lists');
 
 
 

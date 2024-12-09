@@ -50,7 +50,7 @@
                     height="40"
                 />
             </a>
-            <a href="#" class="nav-button" title="Account">
+            <a href="{{ route('profile') }}" class="nav-button" title="Account">
                 <img
                     src="{{ asset('images/icons8-chef-hat-50.png') }}"
                     alt="Account"

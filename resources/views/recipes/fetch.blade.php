@@ -23,15 +23,16 @@
                     <li>{{ $ingredient['original'] }}</li>
                 @endforeach
             </ul>
+            <a href="{{ route('recipes.show', $recipe['id']) }}" class="btn btn-primary">View Ingredients</a>
         </div>
     </div>
 
     <!-- Instructions Section -->
     <div class="instructions-section">
         <h3>Instructions</h3>
-        <ol>
+        <p>
             {!! nl2br(e($recipe['instructions'])) !!}
-        </ol>
+</p>
     </div>
 
     <!-- Back Button -->
