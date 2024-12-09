@@ -28,6 +28,7 @@
                         <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">{{ $recipe['title'] }}</h5>
+                            <a href="{{ route('recipes.fetch', ['id' => $recipe['id']]) }}" class="btn btn-secondary mt-2">View Recipe</a>
                             <a href="{{ route('recipes.show', $recipe['id']) }}" class="btn btn-primary">View Ingredients</a>
                         </div>
                     </div>

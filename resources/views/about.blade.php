@@ -11,6 +11,7 @@
     <header>
         <h1>Meet The Team</h1>
     </header>
+    
 
     <section class="team">
         <div class="member">

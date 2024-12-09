@@ -14,6 +14,9 @@
             <!-- Form with dynamic action and CSRF protection -->
             <form action="{{ route('register') }}" method="POST">
                 @csrf
+                <div class="logo-container">
+    <img src="{{ asset('images/updatelogo.png') }}" alt="Company Logo" class="company-logo">
+</div>
 
                 <!-- Display Validation Errors -->
                 @if ($errors->any())

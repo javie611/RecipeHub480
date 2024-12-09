@@ -1,191 +1,215 @@
-/* General Styles */
+/* General Body Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #D6B6F2; /* Light purple background */
+    background-color: #f3e5f5; /* Light background for contrast */
 }
 
 .container {
-    background-color: #F8D5F7; /* Light pink */
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners */
+    max-width: 1200px; /* Set a max width for the container */
+    width: 90%; /* Ensure it uses 90% of the screen width */
+    margin: 0 auto; /* Center the container */
 }
 
-/* Top Navigation Bar */
-.top-bar {
-    height: 250px; /* Set the height of the navigation bar */
-    background-color: #F8D5F7; /* Light pink background */
+/* Hero Section */
+.hero {
+    position: relative; /* Positioning context for the overlay */
+    height: 18vh;
+    background: url('/images/cartoon-cooking-image.jpg') no-repeat center center;
+    background-size: cover;
     display: flex;
-    align-items: center; /* Vertically center content */
-    padding: 0 20px; /* Add horizontal padding */
-    gap: 10px; /* Reduce space between logo and navigation links */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px;
+    font-style: sans-serif; 
+    color: #955fc7;
 }
 
-/* Logo */
-.logo {
-    display: flex;
-    align-items: center; /* Align logo vertically */
-    margin-right: 10px; /* Reduce spacing between logo and navigation links */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Adjust opacity for readability */
+    z-index: 1; /* Sits above the background image */
+    pointer-events: none; /* Prevent interference with interactions */
 }
 
-.logo img {
-    height: 100%; /* Match logo height to nav bar */
-    max-height: 250px; /* Prevent exceeding nav bar height */
-    width: auto; /* Maintain logo aspect ratio */
+.hero h1,
+.hero p,
+.hero a {
+    position: relative; /* Ensure content appears above the overlay */
+    z-index: 2;
 }
 
-/* Navigation Links */
-.nav-links {
-    display: flex;
-    gap: 15px; /* Reduce space between navigation links */
-    align-items: center; /* Align links vertically with the logo */
-    justify-content: flex-start; /* Keep links close to the logo */
-}
-
-/* Navigation Links Styling */
-.nav-links a {
+.cta-button {
+    background: #B28CD9;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
     text-decoration: none;
-    color: #000; /* Black */
-    font-size: 16px;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #B28CD9; /* Darker purple for hover effect */
-}
-
-.auth-section {
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
-    gap: 40px; /* Adjust spacing between sections */
-    margin: 20px 0; /* Add vertical spacing */
-}
-
-.auth-area {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; /* Center align the text and button */
-    gap: 10px; 
-}
-
-.auth-area.right {
-    align-items: center; /* Center align right section as well */
-}
-
-
-.auth-area p {
-    margin: 0;
     font-size: 18px;
     font-weight: bold;
-    color: #000;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.auth-area button {
+.cta-button:hover {
+    background: #9370DB;
+    transform: scale(1.05);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-button {
     padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: #D6B6F2;
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-    background: linear-gradient(45deg, #F8D5F7, #D6B6F2); 
-    transition: all 0.3s ease; 
+    text-decoration: none;
+    transition: background-color 0.3s;
 }
 
-.auth-area button:hover {
-    opacity: 0.9;
-    transform: scale(1.05); 
+.cta-button:hover {
+    background-color: #B28CD9;
 }
 
-
-.login-box {
-    background-color: white; 
-    padding: 20px; 
-    border-radius: 10px; 
-    border: 1px solid #D6B6F2;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    text-align: center; 
+/* Features Section */
+.features {
+    background-color: #F8D5F7;
+    padding: 50px 20px;
+    text-align: center;
+    color: #955fc7;
 }
 
-/* Main Content */
-.main-content {
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    justify-content: center;
+}
+
+.feature-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 20px 30px;
-    gap: 20px; /* Add spacing between left and right sections */
 }
 
-.left-section {
-    flex: 2;
-}
 
-.right-section {
-    flex: 1;
-    background-color: #F8D5F7; /* Light pink */
+/* User Stories Section */
+.testimonials {
+    background-color: white;
+    padding: 50px 20px;
     text-align: center;
+    color: #955fc7;
+}
+
+.testimonials h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* Dynamic Grid for User Stories */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center the grid */
+    align-items: start; /* Align items at the top */
+    margin: 0 auto; /* Center the grid container */
+    max-width: 1200px; /* Restrict the maximum width */
+}
+
+/* Individual Cards */
+.testimonial-card {
+    background: #F8D5F7; /* Light pink */
     padding: 20px;
-    border-radius: 5px;
-    border: 2px solid #D6B6F2; /* Light purple */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease; /* Add hover animation */
 }
 
-.right-section h2 {
-    color: #D6B6F2;
+.testimonial-card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Images in Cards */
+.testimonial-card img {
+    width: 100%;
+    height: 200px; /* Fixed height for uniformity */
+    border-radius: 10px; /* Rounded corners */
+    object-fit: cover; /* Ensures the image fits the container */
     margin-bottom: 15px;
-    font-size: 20px;
+}
+
+/* Text Content */
+.testimonial-card p {
+    font-size: 1rem;
     font-weight: bold;
+    margin: 10px 0;
+    color: #333;
 }
 
-.right-section img.top-recipe-image {
-    max-width: 80%; /* Adjust image width */
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
+.testimonial-card span {
+    font-size: 0.9rem;
+    color: #666;
 }
 
-.right-section p {
-    font-size: 18px;
-    font-weight: bold;
-    color: #000;
+/* Responsive Spacing for Larger Screens */
+@media (min-width: 768px) {
+    .testimonial-grid {
+        padding: 20px;
+    }
+    .testimonial-card {
+        padding: 30px;
+    }
 }
-
-/* Search Bar */
-.search-bar {
-    padding: 20px 0;
-}
-
-.search-bar input[type="text"] {
-    width: 100%; /* Full width */
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #D6B6F2; /* Light purple border */
-    border-radius: 5px;
-}
-
-/* Footer */
-.footer {
-    background-color: #F8D5F7; /* Same light pink as the header */
-    color: #D6B6F2; /* Light purple text */
+/* Adjust testimonial card width for responsiveness */
+.testimonial-card {
+    background: #F8D5F7; /* Light pink */
     padding: 20px;
+    border-radius: 10px;
     text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    border-top: 2px solid #D6B6F2; /* Light purple border */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add some depth */
+    flex: 1 1 calc(30% - 20px); /* Dynamic width: 30% of parent minus gap */
+    max-width: 400px; /* Optional: limit max width */
+    min-width: 200px; /* Optional: set a minimum width */
+    margin: 10px; /* Add spacing around cards */
 }
 
-/* Form Buttons */
-form button {
-    color: white;
-    background-color: #D6B6F2; /* Light purple */
-    text-align: center;
-    margin-left: 0;
-}
-
-.button-link{
-    color: white;
-    background-color: #D6B6F2; /* Light purple */
-    text-align: center;
-    margin-left: 0;
+/* Ensure grid adjusts dynamically */
+.testimonial-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center-align the cards */
 }
