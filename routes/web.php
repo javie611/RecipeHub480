@@ -45,9 +45,17 @@ Route::get('/shopping.index', function () {
 })->name('shopping');
 });
 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
 Route::get('/js/shopping.js', function () {
     return response()->file(resource_path('js/shopping.js'));
 });
+
+Route::get('/saved-lists', function () {
+    return view('saved-lists'); 
+})->name('saved');
 
 Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
 Route::post('/recipes/search', [RecipeController::class, 'search'])->name('recipes.search');
@@ -59,7 +67,7 @@ Route::get('/shopping', [ShoppingController::class, 'index'])->name('shopping.in
 Route::post('/shopping/store', [ShoppingController::class, 'store'])->name('shopping.store');
 
 
-
+Route::delete('/shopping-lists/{id}', [ShoppingListController::class, 'destroy'])->name('shopping-lists.destroy');
 Route::post('/save-shopping-list', [ShoppingListController::class, 'store'])->name('save.shopping.list');
 Route::get('/recipes/{id}/fetch', [RecipeController::class, 'fetchRecipe'])->name('recipes.fetch');
 

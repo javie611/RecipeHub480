@@ -43,6 +43,20 @@ public function index()
 
     return view('saved-lists', compact('shoppingLists'));
 }
+public function destroy($id)
+{
+    // Fetch the shopping list and ensure it belongs to the authenticated user
+    $shoppingList = ShoppingList::where('id', $id)->where('user_id', auth()->id())->first();
+
+    if (!$shoppingList) {
+        return redirect()->back()->with('error', 'Shopping list not found or you are not authorized to delete it.');
+    }
+
+    // Delete the shopping list
+    $shoppingList->delete();
+
+    return redirect()->route('shopping.index')->with('success', 'Shopping list deleted successfully.');
+}
 
 
 }
