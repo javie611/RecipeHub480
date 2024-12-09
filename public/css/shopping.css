@@ -155,3 +155,77 @@ body::before {
   z-index: -1;
   pointer-events: none;
 }
+/* General Input Styles */
+input[type="text"] {
+  width: 100%; /* Full width of the parent container */
+  max-width: 500px; /* Optional: Limit the maximum width */
+  padding: 10px 15px; /* Add padding for better spacing */
+  font-size: 16px; /* Increase font size for readability */
+  border: 2px solid #D6B6F2; /* Light purple border */
+  border-radius: 8px; /* Rounded corners */
+  margin: 10px 0; /* Add vertical spacing between inputs */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  outline: none; /* Remove default focus outline */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+}
+
+/* Input Focus Styles */
+input[type="text"]:focus {
+  border-color: #955fc7; /* Highlight border on focus */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+/* Button Styles */
+button {
+  background-color: #D6B6F2; /* Light purple background */
+  color: white; /* White text */
+  font-size: 16px; /* Match font size with inputs */
+  padding: 10px 20px; /* Add padding */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+/* Button Hover Effect */
+button:hover {
+  background-color: #B28CD9; /* Darker purple on hover */
+  transform: scale(1.05); /* Slight scaling */
+}
+
+
+/* Align labels and inputs */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align the form content */
+  margin-bottom: 20px; /* Add spacing between forms */
+}
+
+form label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #955fc7; /* Match the purple theme */
+  margin-bottom: 5px; /* Add spacing below the label */
+  text-align: center;
+}
+
+form input[type="text"] {
+  width: 100%; /* Full width */
+  max-width: 400px; /* Limit the width of the input field */
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #D6B6F2;
+  border-radius: 8px;
+  margin-bottom: 15px; /* Space between input fields */
+  text-align: center; /* Center text inside the input */
+}
+
+/* Section Titles */
+#ingredients-section h2,
+#shopping-list-section h2 {
+  font-size: 24px; /* Increase font size */
+  color: #955fc7; /* Purple color for section headers */
+  margin-bottom: 20px; /* Add space below the title */
+  text-align: center; /* Center-align the titles */
+}

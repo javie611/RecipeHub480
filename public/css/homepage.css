@@ -1,13 +1,26 @@
-body { 
+body {
     font-family: Arial, sans-serif;
-    margin: 0;
     background: url('/images/cartoon-cooking-image.jpg') no-repeat center center fixed;
-    background-size: cover; /* Ensure background image covers the whole screen */
-    color: #955fc7;
-    background-attachment: fixed; /* Prevents the background from moving */
-    background-repeat: no-repeat;
-
-}
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+body {
+    position: relative; 
+    overflow: auto;   
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); / Adjust opacity for better readability */
+    z-index: -1;
+    pointer-events: none;
+  }
 
 .homepage-container h1 {
     margin: 0;
@@ -115,3 +128,72 @@ button#next-btn:hover {
 .flip-box {
     transition: transform 1.0s ease; /* Increase time for smoother transitions */
   }
+  /* Make "Recipes of the Week" header visible */
+.homepage-container h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #fff; /* White text for better visibility */
+    font-weight: bold;
+    background-color: #b3a0e0(210, 119, 233, 0.7); /* Semi-transparent black background */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: none;
+    z-index: 10; /* Ensure it appears above other elements */
+    position: relative; /* Position relative to other elements */
+}
+
+/* Transparent box behind the image */
+.slideshow-container img {
+    display: block;
+    max-width: 100%; /* Ensure the image stays responsive */
+    height: auto;
+    margin: 0 auto; /* Center the image */
+    border-radius: 8px; /* Match the container's border radius */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle depth */
+}
+
+.slideshow-container {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    margin-right: 30px;
+    border-radius: 6px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    z-index: 2; /* Ensure it is above the background but below the header */
+}
+
+/* Navigation button adjustments for consistency */
+button#prev-btn,
+button#next-btn {
+    background-color: #dcd4f7; /* Light purple */
+    color: #333; /* Darker text for better visibility */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 3; /* Ensure they are above the transparent box */
+}
+
+button#prev-btn:hover,
+button#next-btn:hover {
+    background-color: #b3a0e0; /* Darker purple on hover */
+}
+.ingredients-container {
+    background-color: #f8d5f7; /* Light pink background */
+    padding: 20px;
+    border-radius: 8px;
+    margin-left: 30px;
+    text-align: left;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 30px; /* Space between image and text */
+    flex: 1;
+}

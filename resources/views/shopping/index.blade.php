@@ -42,6 +42,7 @@
         <!-- Optionally, add an ingredient form -->
         <form action="{{ route('shopping.store') }}" method="POST">
             @csrf
+            <label for="shopping-list-name">Add Additional Ingredients or Items:</label>
             <input type="text" name="ingredient" placeholder="Add your own ingredient" required />
             <button type="submit">Add Ingredient</button>
             
