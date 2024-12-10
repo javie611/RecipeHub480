@@ -3,6 +3,7 @@
     <div class="logo">
         <img src="{{ asset('images/logo.png') }}" alt="RecipeHub Logo">
     </div>
+    
 
     <!-- Navigation Links -->
     <div class="nav-links">
