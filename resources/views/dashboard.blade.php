@@ -129,6 +129,7 @@ function setupSlideshow(recipes) {
     });
 }
 
+
 document.addEventListener('DOMContentLoaded', loadContent);
 </script>
 @endpush

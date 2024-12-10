@@ -1,0 +1,109 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f8d5f7, #f3e5f5); /* Soft cooking-themed gradient */
+    color: #ceb0f1;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #955fc7; /* Rich cooking purple */
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.list-card {
+    display: flex; /* Enable flexbox for alignment */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Push button to the bottom */
+    align-items: flex-start; /* Align items to the left */
+    background-color: #fff;
+    border: 1px solid #dcd4f7;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left; /* Left-align text for consistency */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 200px; /* Ensure consistent height */
+}
+
+.list-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Allow the list to grow and push the button down */
+    font-size: 1em;
+    color: #333;
+}
+
+.list-card ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #f3e5f5;
+}
+
+.list-card ul li:last-child {
+    border-bottom: none;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 10px;
+}
+
+.button.delete {
+    align-self: flex-start; /* Ensure button aligns to the bottom-left corner */
+    background-color: #f48fb1; /* Light pink */
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button.delete:hover {
+    background-color: #ec407a; /* Vibrant pink on hover */
+}
+
+
+/* Add New List Button */
+.add-list-button {
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #955fc7; /* Rich cooking purple */
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-list-button:hover {
+    background-color: #7e57c2;
+    transform: scale(1.05);
+}
