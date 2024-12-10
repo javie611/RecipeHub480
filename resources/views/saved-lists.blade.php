@@ -32,6 +32,6 @@
         <p>No saved shopping lists found.</p>
         @endforelse
     </div>
-    <button class="add-list-button">+ Add New List</button>
+    <a href="{{ route('shopping.index') }}"> <button class="add-list-button">+ Add New List</button> </a>
 </div>
 @endsection
