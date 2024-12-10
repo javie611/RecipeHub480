@@ -233,5 +233,137 @@ button#next-btn:hover {
     font-weight: bold;
     color: #fff;
     border-top: 2px solid #b3a0e0;
-    z-index: 10;
+    z-index: 100;
+    margin-top: 100px;
+}
+.last-week-recipes h2 {
+    font-size: 1.6rem; /* Larger font size */
+    color: #955fc7; /* Purple text */
+    text-align: center; /* Center align the text */
+    margin: 0 auto; /* Center within the container */
+    padding: 20;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    border: 2px solid white; /* White border for better readability */
+    border-radius: 10px; /* Rounded corners */
+    display: inline-block; /* Fit the text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative; /* For layout control */
+    transform: translateX(-50%);
+    left: 50%; /* Center horizontally */
+}
+
+/* Style for recipe captions below images */
+.recipe-caption {
+    font-size: 1.2rem;
+    color: #32045e; /* Purple text */
+    text-align: center;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    padding: 5px 10px; /* Padding for spacing */
+    margin-top: 30px; /* Spacing above captions */
+    border: 2px solid white; /* White border */
+    border-radius: 10px; /* Rounded corners */
+    display: inline-block; /* Wrap background to fit the text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
+
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start; /* Ensures items are aligned from the top */
+}
+
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Ensures content is pushed to the bottom */
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Adds space between image and description */
+}
+
+.recipe-card p {
+    margin: 0;
+    font-size: 16px;
+    color: #7e57c2;
+}
+/* Container for Last Week's Recipes */
+.last-week-recipes {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+    top: 875px; /* Increased to bring the container further down */
+    margin-bottom: 20px;
+}
+
+/* Heading Style */
+.last-week-recipes h2 {
+    font-size: 2rem; /* Larger font size */
+    color: #955fc7; /* Purple text */
+    text-align: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    border: 2px solid white; /* White border for better readability */
+    border-radius: 10px; /* Rounded corners */
+    display: inline-block; /* Fit the text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
+    margin-bottom: 20px;
+}
+
+/* Recipe Cards */
+.recipe-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    padding: 10px;
+}
+
+.recipe-item {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white for better contrast */
+    border: 1px solid #f3e5f5; /* Light pink border */
+    border-radius: 12px; /* Rounded corners */
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add some depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-item img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px; /* Rounded corners */
+}
+
+.recipe-item:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Caption Style */
+.recipe-item .recipe-caption {
+    font-size: 1.2rem;
+    color: #955fc7; /* Purple text */
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    padding: 5px 10px; /* Spacing */
+    border: 2px solid white; /* White border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
 }
