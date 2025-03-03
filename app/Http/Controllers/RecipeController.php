@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
-
+use Illuminate\Support\Facades\Log;
 class RecipeController extends Controller
 {
+
+
     public function index()
     {
         return view('recipes.index');
@@ -15,7 +17,7 @@ class RecipeController extends Controller
 
     public function fetchRecipe($id)
     {
-        $apiKey = env('SPOONACULAR_API_KEY');
+        $apiKey = config('services.spoonacular.api_key');
         $url = "https://api.spoonacular.com/recipes/{$id}/information";
 
         try {
@@ -35,7 +37,7 @@ class RecipeController extends Controller
     }
     public function search(Request $request)
 {
-    $apiKey = env('SPOONACULAR_API_KEY');
+    $apiKey = config('services.spoonacular.api_key');
     $query = $request->input('query');
 
     if (!$query) {
@@ -48,6 +50,12 @@ class RecipeController extends Controller
             'apiKey' => $apiKey,
             'number' => 20 // Limit the number of results
         ]);
+        Log::info("API Request Made", [
+                'endpoint' => "https://api.spoonacular.com/recipes/complexSearch",
+                'parameters' => ['query' => $query, 'number' => 20],
+                'status' => $response->status(),
+                'response' => $response->json(),
+            ]);
 
         $recipes = $response->json()['results'] ?? [];
         return view('recipes.index', compact('recipes', 'query'));
@@ -58,7 +66,7 @@ class RecipeController extends Controller
 }
 public function show($id)
 {
-    $apiKey = env('SPOONACULAR_API_KEY');
+    $apiKey = config('services.spoonacular.api_key');
 
     try {
         $response = Http::get("https://api.spoonacular.com/recipes/{$id}/information", [

@@ -120,6 +120,16 @@ Route::post('/profile/change-password', [UserController::class, 'changePassword'
 // View saved lists
 Route::get('/profile/saved-lists', [ShoppingListController::class, 'index'])->name('profile.saved-lists');
 
+Route::get('/test-api', function () {
+    $apiKey = env('SPOONACULAR_API_KEY');
+    $response = Http::get("https://api.spoonacular.com/recipes/complexSearch", [
+        'query' => 'pasta',
+        'apiKey' => $apiKey,
+        'number' => 1
+    ]);
+
+    return response()->json($response->json());
+});
 
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
