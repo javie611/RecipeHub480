@@ -17,7 +17,7 @@ it('logs in a user with valid credentials', function () {
     ]);
 
     $response->assertRedirect('/dashboard');
-    expect(auth()->user())->toBe($user);
+    expect(auth()->user()->is($user))->toBeTrue();
 });
 
 it('fails login with invalid credentials', function () {
