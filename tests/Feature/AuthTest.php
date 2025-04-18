@@ -1,23 +1,25 @@
 use App\Models\User;
-use function Pest\Laravel\{actingAs, get, post};
+use function Pest\Laravel\{post, get};
 
-it('allows users to log in', function () {
+it('logs in a user with valid credentials', function () {
     $user = User::factory()->create([
-        'password' => bcrypt('secret'),
+        'password' => bcrypt('secret123'),
     ]);
 
     $response = post('/login', [
         'email' => $user->email,
-        'password' => 'secret',
+        'password' => 'secret123',
     ]);
 
-    $response->assertRedirect('/home');
-    $this->assertAuthenticatedAs($user);
+    $response->assertRedirect('/dashboard');
+    expect(auth()->user())->toBe($user);
 });
 
-it('rejects invalid login', function () {
+it('fails login with invalid credentials', function () {
+    $user = User::factory()->create();
+
     post('/login', [
-        'email' => 'wrong@example.com',
+        'email' => $user->email,
         'password' => 'wrongpassword',
     ])->assertSessionHasErrors();
 });
