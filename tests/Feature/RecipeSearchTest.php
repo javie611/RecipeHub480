@@ -18,9 +18,13 @@ it('searches for recipes using Spoonacular in /recipes/search', function () {
      $user = User::factory()->create();
     actingAs($user); // ← Simulate login
     
-    post('/recipes/search', [
-        'ingredients' => 'tuna,lettuce',
-    ])
-        ->assertRedirect()
-        ->assertSee('Tuna Salad'); // adjust based on what the response returns
+    $response = post('/recipes/search', [
+    'ingredients' => 'tuna,lettuce',
+]);
+
+$response->assertRedirect(); // step 1: check redirect
+
+$followed = get($response->headers->get('Location')); // step 2: follow manually
+$followed->assertSee('Tuna Salad'); // step 3: assert content
+ // adjust based on what the response returns
 });
