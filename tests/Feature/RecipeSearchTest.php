@@ -1,30 +1,25 @@
 <?php
-use Illuminate\Support\Facades\Http;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use function Pest\Laravel\actingAs;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
-uses(RefreshDatabase::class);
-
-use function Pest\Laravel\post;
-
-it('searches for recipes using Spoonacular in /recipes/search', function () {
+test('it searches for recipes using Spoonacular in /recipes/search', function () {
     Http::fake([
-        'api.spoonacular.com/*' => Http::response([
-            ['title' => 'Tuna Salad', 'id' => 555]
+        '*' => Http::response([
+            'results' => [
+                ['title' => 'Tuna Salad', 'id' => 555]
+            ],
         ], 200),
     ]);
 
-     $user = User::factory()->create();
-    actingAs($user); // ← Simulate login
-    
-    $response = post('/recipes/search', [
-    'ingredients' => 'tuna,lettuce',
-]);
+    $user = User::factory()->create();
+    $this->actingAs($user);
 
-$response->assertRedirect(); // step 1: check redirect
+    $response = $this->post('/recipes/search', [
+        'ingredients' => 'tuna,lettuce',
+    ]);
 
-$followed = get($response->headers->get('Location')); // step 2: follow manually
-$followed->assertSee('Tuna Salad'); // step 3: assert content
- // adjust based on what the response returns
+    $response->assertRedirect();
+
+    $followed = $this->get($response->headers->get('Location'));
+    $followed->assertSee('Tuna Salad');
 });
