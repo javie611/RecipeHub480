@@ -14,14 +14,18 @@ test('it searches for recipes using Spoonacular in /recipes/search', function ()
     $user = User::factory()->create();
     $this->actingAs($user);
 
-    $response = $this->post('/recipes/search', [
-        'ingredients' => 'tuna,lettuce',
-    ]);
+   $response = $this->post('/recipes/search', [
+    'ingredients' => 'tuna,lettuce',
+]);
 
-    $response->assertRedirect();
+$response->assertRedirect(); // Ensure it redirects first
 
-   $followed = $this->get($response->headers->get('Location'));
-$followed->assertSee('Back to Search');  // Assuring the button is in the layout
-$followed->assertSee('RecipeHub');  // Confirm the page loads the correct title
+// Follow the redirect
+$followed = $this->get($response->headers->get('Location'));
+
+// Now assert the button and content
+$followed->assertSee('Back to Search');  
+$followed->assertSee('RecipeHub');  
+
 
 });
