@@ -1,3 +1,4 @@
+<?php
 use Illuminate\Support\Facades\Http;
 use function Pest\Laravel\get;
 
