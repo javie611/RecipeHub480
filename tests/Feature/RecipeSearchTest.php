@@ -20,6 +20,8 @@ test('it searches for recipes using Spoonacular in /recipes/search', function ()
 
     $response->assertRedirect();
 
-    $followed = $this->get($response->headers->get('Location'));
-$followed->assertSee('Back to Search');
+   $followed = $this->get($response->headers->get('Location'));
+$followed->assertSee('Back to Search');  // Assuring the button is in the layout
+$followed->assertSee('RecipeHub');  // Confirm the page loads the correct title
+
 });
