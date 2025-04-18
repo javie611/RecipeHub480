@@ -1,7 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Http;
-use function Pest\Laravel\get;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use function Pest\Laravel\get;
+uses(RefreshDatabase::class);
 it('fetches recipes from Spoonacular in /test-api', function () {
     Http::fake([
         'api.spoonacular.com/*' => Http::response([
