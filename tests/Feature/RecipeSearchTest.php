@@ -13,6 +13,9 @@ it('searches for recipes using Spoonacular in /recipes/search', function () {
         ], 200),
     ]);
 
+     $user = User::factory()->create();
+    actingAs($user); // ← Simulate login
+    
     post('/recipes/search', [
         'ingredients' => 'tuna,lettuce',
     ])
