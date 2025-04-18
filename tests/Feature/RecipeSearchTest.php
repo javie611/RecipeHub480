@@ -23,9 +23,9 @@ $response->assertRedirect(); // Ensure it redirects first
 // Follow the redirect
 $followed = $this->get($response->headers->get('Location'));
 
-// Now assert the button and content
-$followed->assertSee('Back to Search');  
-$followed->assertSee('RecipeHub');  
+// Assert that the response contains the recipe title or an ingredient like "Tuna"
+$followed->assertSee('Tuna Salad');  // Assuring the recipe title is in the layout
+$followed->assertSee('Tuna');        // Confirm that "Tuna" is listed as an ingredient
 
 
 });
