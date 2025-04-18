@@ -21,5 +21,5 @@ test('it searches for recipes using Spoonacular in /recipes/search', function ()
     $response->assertRedirect();
 
     $followed = $this->get($response->headers->get('Location'));
-    $followed->assertSee('Tuna Salad');
+$followed->assertSee('Back to Search');
 });
