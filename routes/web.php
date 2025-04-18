@@ -131,6 +131,9 @@ Route::get('/test-api', function () {
     return response()->json($response->json());
 });
 
+Route::get('/health-check', function () {
+    return response()->json(['status' => 'healthy'], 200);
+});
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->name('login'); // Removed guest middleware
