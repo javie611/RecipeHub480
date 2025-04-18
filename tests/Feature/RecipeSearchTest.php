@@ -1,5 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Http;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
+
 use function Pest\Laravel\post;
 
 it('searches for recipes using Spoonacular in /recipes/search', function () {
