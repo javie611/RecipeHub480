@@ -21,6 +21,6 @@ it('searches for recipes using Spoonacular in /recipes/search', function () {
     post('/recipes/search', [
         'ingredients' => 'tuna,lettuce',
     ])
-        ->assertOk() // or assertRedirect, if it redirects to a view
+        ->assertRedirect('/dashboard')
         ->assertSee('Tuna Salad'); // adjust based on what the response returns
 });
