@@ -1,4 +1,8 @@
 <?php
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
+
 use App\Models\User;
 use function Pest\Laravel\{post, get};
 
