@@ -11,6 +11,7 @@ Resources:
   SSMRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: LaravelSSMRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -18,11 +19,11 @@ Resources:
             Principal:
               Service: ec2.amazonaws.com
             Action: sts:AssumeRole
-      Path: /
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
         - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
-
+      Path: /
+      
   SSMInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
