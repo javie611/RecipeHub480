@@ -1,4 +1,4 @@
-name: Update to EC2
+name: Deploy Laravel to AWS
 
 on:
   push:
@@ -7,34 +7,57 @@ on:
 
 jobs:
   deploy:
-    name: Update to EC2 Instances
     runs-on: ubuntu-latest
+
+env:
+      STACK_NAME: recipehub-stack
+      REGION: us-east-2
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
 
-      - name: Set up SSH
+      - name: Deploy CloudFormation stack
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          touch ~/.ssh/known_hosts
-          ssh-keyscan -H ec2-18-116-211-64.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
-          ssh-keyscan -H ec2-3-14-227-89.us-east-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+          aws cloudformation deploy \
+            --template-file template.yaml \
+            --stack-name $STACK_NAME \
+            --capabilities CAPABILITY_NAMED_IAM
 
-      - name: Deploy to EC2 Instance 1
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-18-116-211-64.us-east-2.compute.amazonaws.com << 'EOF'
-            cd /var/www/html/RecipeHub480
-            git config --global --add safe.directory /var/www/html/RecipeHub480
-            sudo git pull origin main
-          EOF
+      - name: Wait for EC2s to initialize
+        run: sleep 60
 
-      - name: Deploy to EC2 Instance 2
+      - name: Get EC2 public IPs
+        id: get_ips
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@ec2-3-14-227-89.us-east-2.compute.amazonaws.com << 'EOF'
-            cd /var/www/html/RecipeHub480
-            git config --global --add safe.directory /var/www/html/RecipeHub480
-            sudo git pull origin main
-          EOF
+          IP1=$(aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=EC2_1" \
+                      "Name=instance-state-name,Values=running" \
+            --query "Reservations[*].Instances[*].PublicIpAddress" \
+            --region $REGION --output text)
+
+          IP2=$(aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=EC2_2" \
+                      "Name=instance-state-name,Values=running" \
+            --query "Reservations[*].Instances[*].PublicIpAddress" \
+            --region $REGION --output text)
+
+          echo "EC2_1_IP=$IP1" >> $GITHUB_ENV
+          echo "EC2_2_IP=$IP2" >> $GITHUB_ENV
+
+      - name: Deploy Laravel to EC2_1
+        run: |
+          echo "Deploying to $EC2_1_IP"
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_KEY }} ec2-user@$EC2_1_IP 'bash -s' < ./deploy.sh
+
+      - name: Deploy Laravel to EC2_2
+        run: |
+          echo "Deploying to $EC2_2_IP"
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_KEY }} ec2-user@$EC2_2_IP 'bash -s' < ./deploy.sh
