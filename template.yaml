@@ -8,6 +8,28 @@ Parameters:
 
 Resources:
 
+  SSMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
+
+  SSMInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref SSMRole
+        
   Subnet1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -68,7 +90,7 @@ Resources:
           ToPort: 443
           CidrIp: 0.0.0.0/0
 
-  LaravelInstance:
+ LaravelInstance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t3.micro
@@ -76,18 +98,31 @@ Resources:
       SubnetId: !Ref Subnet1
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
-      ImageId: ami-052cd5f71fe888d1f # <-- Replace with your actual Laravel AMI
+      IamInstanceProfile: !Ref SSMInstanceProfile
+      ImageId: ami-052cd5f71fe888d1f
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
           yum update -y
+          yum install -y amazon-ssm-agent aws-cli
+          systemctl start amazon-ssm-agent
+          
           cd /var/www/html
+
+          # Fetch values from Parameter Store
+          DB_HOST=$(aws ssm get-parameter --name "/RecipeHub/DB_HOST" --with-decryption --query "Parameter.Value" --output text)
+          DB_USERNAME=$(aws ssm get-parameter --name "/RecipeHub/DB_USERNAME" --with-decryption --query "Parameter.Value" --output text)
+          DB_PASSWORD=$(aws ssm get-parameter --name "/RecipeHub/DB_PASSWORD" --with-decryption --query "Parameter.Value" --output text)
+          API_KEY=$(aws ssm get-parameter --name "/RecipeHub/API_KEY" --with-decryption --query "Parameter.Value" --output text)
+
           echo "DB_CONNECTION=mysql" > .env
-          echo "DB_HOST=laravel.cnuksyk42940.us-east-2.rds.amazonaws.com" >> .env
+          echo "DB_HOST=$DB_HOST" >> .env
           echo "DB_PORT=3306" >> .env
           echo "DB_DATABASE=Laravel" >> .env
-          echo "DB_USERNAME=admin" >> .env
-          echo "DB_PASSWORD=password" >> .env
+          echo "DB_USERNAME=$DB_USERNAME" >> .env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+          echo "API_KEY=$API_KEY" >> .env
+
           php artisan config:cache
           php artisan migrate --force
           php artisan serve --host=0.0.0.0 --port=80
