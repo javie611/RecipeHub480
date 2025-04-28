@@ -7,11 +7,33 @@ Parameters:
     Description: EC2 KeyPair for SSH access
 
 Resources:
-
+   VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 172.31.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: Name
+          Value: LaravelVPC
+          
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: LaravelIGW
+          
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway   
+      
   Subnet1:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: vpc-0e8e22de982697ded
+      VpcId: !Ref VPC
       CidrBlock: 172.31.100.0/24
       AvailabilityZone: !Select
         - 0
@@ -21,7 +43,7 @@ Resources:
   Subnet2:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: vpc-0e8e22de982697ded
+      VpcId: !Ref VPC
       CidrBlock: 172.31.101.0/24
       AvailabilityZone: !Select
         - 1
@@ -31,7 +53,7 @@ Resources:
   Subnet3:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: vpc-0e8e22de982697ded
+      VpcId: !Ref VPC
       CidrBlock: 172.31.102.0/24
       AvailabilityZone: !Select
         - 2
@@ -68,7 +90,7 @@ Resources:
           ToPort: 443
           CidrIp: 0.0.0.0/0
 
-  LaravelInstance:
+  LaravelInstance1:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t3.micro
@@ -86,7 +108,26 @@ Resources:
           chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
-
+  
+  LaravelInstance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref LaravelSecurityGroup
+      ImageId: ami-<NEW_AMI_ID> 
+      UserData: !Base64
+        Fn::Sub: |
+          #!/bin/bash
+          yum update -y
+          cd /var/www/html
+          composer install --no-dev --optimize-autoloader
+          chmod -R 775 storage bootstrap/cache
+          php artisan config:cache
+          php artisan migrate --force
+          
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -104,10 +145,10 @@ Resources:
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      VpcId: vpc-0e8e22de982697ded
+      VpcId: !Ref VPC
       Protocol: HTTP
       Port: 80
-      TargetType: ip
+      TargetType: instance
       HealthCheckPath: /dashboard
       HealthCheckProtocol: HTTP
       HealthCheckIntervalSeconds: 30
@@ -141,3 +182,10 @@ Resources:
       DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref TargetGroup
+
+    TargetGroupAttachment2:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroupAttachment
+    Properties:
+      TargetGroupArn: !Ref TargetGroup
+      TargetId: !Ref LaravelInstance2
+      Port: 80
