@@ -108,6 +108,7 @@ Resources:
           chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
+          ./vendor/bin/pest
 
   LaravelInstance2:
     Type: AWS::EC2::Instance
@@ -127,6 +128,7 @@ Resources:
           chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
+          ./vendor/bin/pest
 
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
