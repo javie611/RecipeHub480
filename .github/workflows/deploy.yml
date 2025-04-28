@@ -2,6 +2,15 @@ name: Deploy Laravel to AWS
 
 on:
   workflow_dispatch: 
+    inputs:
+      environment:
+        description: 'The environment to deploy to (e.g., production, staging)'
+        required: true
+        default: 'production'
+      deploy_ami:
+        description: 'Create a new AMI before deploying? (yes/no)'
+        required: false
+        default: 'yes'
 
 jobs:
   deploy:
