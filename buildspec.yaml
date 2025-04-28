@@ -8,6 +8,7 @@ phases:
       - echo Installing system dependencies...
       - yum update -y
       - yum install -y --allowerasing curl git unzip php-cli php-mbstring php-xml php-pdo php-common php-devel
+      - export HOME=/root
       - curl -sS https://getcomposer.org/installer | php
       - mv composer.phar /usr/local/bin/composer
 
