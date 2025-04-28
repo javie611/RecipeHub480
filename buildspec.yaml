@@ -27,18 +27,6 @@ phases:
       - php artisan config:cache
       - php artisan migrate --force
 
-    post_build:
-    commands:
-      - echo Deploying application to /var/www/html/...
-      - rm -rf /var/www/html/*
-      - git clone https://github.com/javie611/RecipeHub480.git /var/www/html/
-      - cd /var/www/html
-      - composer install --no-dev --optimize-autoloader
-      - chmod -R 775 storage bootstrap/cache
-      - php artisan config:cache
-      - php artisan migrate --force
-      - echo Deployment completed successfully.
-
 
 artifacts:
   files:
