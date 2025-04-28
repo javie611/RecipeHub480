@@ -1,23 +1,23 @@
 version: 0.2
 
 phases:
- install:
-  runtime-versions:
-    php: 8.1
-  commands:
-    - echo Installing system dependencies...
-    - yum install -y git unzip
-    - amazon-linux-extras enable php8.1
-    - yum clean metadata
-    - yum install -y php php-cli php-mbstring php-xml php-pdo php-common php-devel
-    - curl -sS https://getcomposer.org/installer | php
-    - mv composer.phar /usr/local/bin/composer
+  install:
+    runtime-versions:
+      php: 8.1
+    commands:
+      - echo Installing system dependencies...
+      - apt-get update -y
+      - apt-get install -y curl git unzip php-cli php-mbstring php-xml php-pdo php-common php-dev
+      - curl -sS https://getcomposer.org/installer | php
+      - mv composer.phar /usr/local/bin/composer
 
   pre_build:
     commands:
+      - echo Cloning repository...
+      - git clone https://github.com/javie611/RecipeHub480.git app
+      - cd app
       - echo Installing PHP dependencies...
       - composer install --no-dev --optimize-autoloader
-      - echo Setting folder permissions...
       - chmod -R 775 storage bootstrap/cache
 
   build:
@@ -26,14 +26,18 @@ phases:
       - php artisan config:cache
       - php artisan migrate --force
 
-  post_build:
+    post_build:
     commands:
       - echo Deploying application to /var/www/html/...
       - rm -rf /var/www/html/*
-      - cp -r * /var/www/html/
-      - cp -r .env /var/www/html/ || true
-      - chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+      - git clone https://github.com/javie611/RecipeHub480.git /var/www/html/
+      - cd /var/www/html
+      - composer install --no-dev --optimize-autoloader
+      - chmod -R 775 storage bootstrap/cache
+      - php artisan config:cache
+      - php artisan migrate --force
       - echo Deployment completed successfully.
+
 
 artifacts:
   files:
