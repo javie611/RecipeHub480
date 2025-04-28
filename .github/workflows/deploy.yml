@@ -41,25 +41,8 @@ jobs:
           echo "Waiting for the AMI to become available..."
           aws ec2 wait image-available --image-ids $NEW_AMI_ID
           echo "AMI $NEW_AMI_ID is now available."
-          OLD_AMI_ID=$(aws ec2 describe-instances --instance-id $INSTANCE_ID --query "Reservations[0].Instances[0].ImageId" --output text)
           echo "Updating CloudFormation template with new AMI ID: $NEW_AMI_ID"
           sed -i "s/ami-0123456789abcdef0/$NEW_AMI_ID/" template.yaml
-          echo "Checking if old AMI exists: $OLD_AMI_ID"
-          if aws ec2 describe-images --image-ids "$OLD_AMI_ID" >/dev/null 2>&1; then
-            # Deregister the old AMI
-            aws ec2 deregister-image --image-id "$OLD_AMI_ID"
-            echo "Deregistered old AMI: $OLD_AMI_ID"
-            # Delete associated snapshots
-            SNAPSHOT_IDS=$(aws ec2 describe-images --image-ids "$OLD_AMI_ID" --query 'Images[].BlockDeviceMappings[].Ebs.SnapshotId' --output text)
-            for SNAPSHOT_ID in $SNAPSHOT_IDS; do
-              if [ "$SNAPSHOT_ID" != "None" ]; then
-                echo "Deleting snapshot: $SNAPSHOT_ID"
-                aws ec2 delete-snapshot --snapshot-id "$SNAPSHOT_ID"
-              fi
-            done
-          else
-            echo "Old AMI $OLD_AMI_ID does not exist. Skipping deregistration and snapshot deletion."
-          fi
           echo "AMI creation, CloudFormation update, and cleanup complete."
 
       - name: Deploy CloudFormation stack
