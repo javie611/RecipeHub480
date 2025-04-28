@@ -76,21 +76,16 @@ Resources:
       SubnetId: !Ref Subnet1
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
-      ImageId: ami-052cd5f71fe888d1f # <-- Replace with your actual Laravel AMI
+      ImageId: ami-<NEW_AMI_ID> 
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
           yum update -y
           cd /var/www/html
-          echo "DB_CONNECTION=mysql" > .env
-          echo "DB_HOST=laravel.cnuksyk42940.us-east-2.rds.amazonaws.com" >> .env
-          echo "DB_PORT=3306" >> .env
-          echo "DB_DATABASE=Laravel" >> .env
-          echo "DB_USERNAME=admin" >> .env
-          echo "DB_PASSWORD=password" >> .env
+          composer install --no-dev --optimize-autoloader
+          chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
-          php artisan serve --host=0.0.0.0 --port=80
 
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
