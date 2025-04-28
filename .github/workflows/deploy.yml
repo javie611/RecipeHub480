@@ -34,7 +34,7 @@ jobs:
       - name: Create New AMI and Update CloudFormation
         run: |
           INSTANCE_ID="i-0c1a09c9025af84fc" 
-          AMI_NAME="RecipeHub-Updated-$(date +'%Y-%m-%d')"
+          AMI_NAME="AMI-Updated-$(date +'%Y-%m-%d-%H-%M-%S')"
           echo "Creating a new AMI from instance: $INSTANCE_ID"
           NEW_AMI_ID=$(aws ec2 create-image --instance-id $INSTANCE_ID --name "$AMI_NAME" --no-reboot --output text)
           echo "New AMI ID: $NEW_AMI_ID"
