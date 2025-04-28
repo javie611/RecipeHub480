@@ -15,8 +15,8 @@ phases:
   pre_build:
     commands:
       - echo Cloning repository...
-      - git clone https://github.com/javie611/RecipeHub480.git app
-      - cd app
+      - git clone https://github.com/javie611/RecipeHub480.git /var/www/html
+      - cd /var/www/html
       - echo Installing PHP dependencies...
       - composer install --no-dev --optimize-autoloader
       - chmod -R 775 storage bootstrap/cache
