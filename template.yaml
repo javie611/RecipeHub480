@@ -1,0 +1,148 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Laravel EC2 with ALB, HTTPS, and Route 53
+
+Parameters:
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: EC2 KeyPair for SSH access
+
+Resources:
+
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: vpc-0e8e22de982697ded
+      CidrBlock: 172.31.100.0/24
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs ''
+      MapPublicIpOnLaunch: true
+
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: vpc-0e8e22de982697ded
+      CidrBlock: 172.31.101.0/24
+      AvailabilityZone: !Select
+        - 1
+        - !GetAZs ''
+      MapPublicIpOnLaunch: true
+
+  Subnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: vpc-0e8e22de982697ded
+      CidrBlock: 172.31.102.0/24
+      AvailabilityZone: !Select
+        - 2
+        - !GetAZs ''
+      MapPublicIpOnLaunch: true
+
+  LaravelSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP and SSH for Laravel EC2
+      VpcId: vpc-0e8e22de982697ded
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  ALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP and HTTPS for Load Balancer
+      VpcId: vpc-0e8e22de982697ded
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+
+  LaravelInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref Subnet1
+      SecurityGroupIds:
+        - !Ref LaravelSecurityGroup
+      ImageId: ami-052cd5f71fe888d1f # <-- Replace with your actual Laravel AMI
+      UserData: !Base64
+        Fn::Sub: |
+          #!/bin/bash
+          yum update -y
+          cd /var/www/html
+          echo "DB_CONNECTION=mysql" > .env
+          echo "DB_HOST=laravel.cnuksyk42940.us-east-2.rds.amazonaws.com" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=Laravel" >> .env
+          echo "DB_USERNAME=admin" >> .env
+          echo "DB_PASSWORD=password" >> .env
+          php artisan config:cache
+          php artisan migrate --force
+          php artisan serve --host=0.0.0.0 --port=80
+
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: LaravelALB
+      Subnets:
+        - !Ref Subnet1
+        - !Ref Subnet2
+        - !Ref Subnet3
+      SecurityGroups:
+        - !Ref ALBSecurityGroup
+      Scheme: internet-facing
+      Type: application
+      IpAddressType: ipv4
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: vpc-0e8e22de982697ded
+      Protocol: HTTP
+      Port: 80
+      TargetType: ip
+      HealthCheckPath: /dashboard
+      HealthCheckProtocol: HTTP
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200
+
+  ListenerHTTP:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: redirect
+          RedirectConfig:
+            Protocol: HTTPS
+            Port: '443'
+            StatusCode: HTTP_301
+
+  ListenerHTTPS:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 443
+      Protocol: HTTPS
+      Certificates:
+        - CertificateArn: arn:aws:acm:us-east-2:619071312739:certificate/9c5ae33c-7caf-469e-8163-20cbf9438ce8
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroup
