@@ -16,7 +16,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-env:
+    env:
       STACK_NAME: recipehub-stack
       REGION: us-east-2
 
