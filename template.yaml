@@ -98,7 +98,7 @@ Resources:
       SubnetId: !Ref Subnet1
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
-      ImageId: ami-<NEW_AMI_ID>
+      ImageId: <NEW_AMI_ID>
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
@@ -118,7 +118,7 @@ Resources:
       SubnetId: !Ref Subnet1
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
-      ImageId: ami-<NEW_AMI_ID>
+      ImageId: <NEW_AMI_ID>
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
