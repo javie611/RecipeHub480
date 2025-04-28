@@ -56,6 +56,11 @@ jobs:
       - name: Wait for EC2s to initialize
         run: sleep 60
 
+      - name: Revert template.yaml back to placeholder
+        run: |
+          echo "Reverting template.yaml back to <NEW_AMI_ID>..."
+          sed -i "s|ami-[a-zA-Z0-9]*|<NEW_AMI_ID>|g" template.yaml
+
       - name: Deployed Laravel
         run: |
           echo "Application deployed, ready for traffic"
