@@ -7,29 +7,29 @@ Parameters:
     Description: EC2 KeyPair for SSH access
 
 Resources:
-   VPC:
+  VPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 172.31.0.0/16
-      EnableDnsSupport: 'true'
-      EnableDnsHostnames: 'true'
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
       Tags:
         - Key: Name
           Value: LaravelVPC
-          
+
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
           Value: LaravelIGW
-          
+
   VPCGatewayAttachment:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId: !Ref VPC
-      InternetGatewayId: !Ref InternetGateway   
-      
+      InternetGatewayId: !Ref InternetGateway
+
   Subnet1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -64,7 +64,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow HTTP and SSH for Laravel EC2
-      VpcId: vpc-0e8e22de982697ded
+      VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
@@ -79,7 +79,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow HTTP and HTTPS for Load Balancer
-      VpcId: vpc-0e8e22de982697ded
+      VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
@@ -98,7 +98,7 @@ Resources:
       SubnetId: !Ref Subnet1
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
-      ImageId: ami-<NEW_AMI_ID> 
+      ImageId: ami-<NEW_AMI_ID>
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
@@ -108,7 +108,7 @@ Resources:
           chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
-  
+
   LaravelInstance2:
     Type: AWS::EC2::Instance
     Properties:
@@ -117,7 +117,7 @@ Resources:
       SubnetId: !Ref Subnet1
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
-      ImageId: ami-<NEW_AMI_ID> 
+      ImageId: ami-<NEW_AMI_ID>
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
@@ -127,7 +127,7 @@ Resources:
           chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
-          
+
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -182,10 +182,3 @@ Resources:
       DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref TargetGroup
-
-    TargetGroupAttachment2:
-    Type: AWS::ElasticLoadBalancingV2::TargetGroupAttachment
-    Properties:
-      TargetGroupArn: !Ref TargetGroup
-      TargetId: !Ref LaravelInstance2
-      Port: 80
