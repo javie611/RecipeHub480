@@ -42,7 +42,7 @@ jobs:
           aws ec2 wait image-available --image-ids $NEW_AMI_ID
           echo "AMI $NEW_AMI_ID is now available."
           echo "Updating CloudFormation template with new AMI ID: $NEW_AMI_ID"
-          sed -i "s/ami-0123456789abcdef0/$NEW_AMI_ID/" template.yaml
+          sed -i "s|<NEW_AMI_ID>|$NEW_AMI_ID|g" template.yaml
           echo "AMI creation, CloudFormation update, and cleanup complete."
 
       - name: Deploy CloudFormation stack
