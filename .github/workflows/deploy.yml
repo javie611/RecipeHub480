@@ -45,8 +45,13 @@ jobs:
           echo "Updating CloudFormation template with new AMI ID: $NEW_AMI_ID"
           sed -i "s/ami-0123456789abcdef0/$NEW_AMI_ID/" template.yaml  
           echo "Deleting the old AMI: $OLD_AMI_ID"
-          aws ec2 deregister-image --image-id $OLD_AMI_ID
-          echo "AMI creation and CloudFormation update complete."
+          if aws ec2 describe-images --image-ids "$OLD_AMI_ID" >/dev/null 2>&1; then
+          aws ec2 deregister-image --image-id "$OLD_AMI_ID"
+          echo "Deleted old AMI: $OLD_AMI_ID"
+          else
+          echo "Old AMI $OLD_AMI_ID does not exist. Skipping delete."
+          fi
+          echo "AMI creation and CloudFormation update complete.
 
       - name: Deploy CloudFormation stack
         run: |
