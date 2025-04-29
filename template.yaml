@@ -137,6 +137,9 @@ Resources:
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
       ImageId: <NEW_AMI_ID>
+      Tags:
+        - Key: Name
+          Value: LaravelInstance1
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
@@ -160,6 +163,9 @@ Resources:
       SecurityGroupIds:
         - !Ref LaravelSecurityGroup
       ImageId: <NEW_AMI_ID>
+      Tags:
+        - Key: Name
+          Value: LaravelInstance2
       UserData: !Base64
         Fn::Sub: |
           #!/bin/bash
