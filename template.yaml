@@ -195,6 +195,7 @@ Resources:
 
   RecipeHubDNSRecord:
       Type: AWS::Route53::RecordSet
+      DependsOn: LoadBalancer
       Properties:
         HostedZoneId: !Ref HostedZoneId
         Name: www.recipehub.info.
