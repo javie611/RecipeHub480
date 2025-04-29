@@ -5,6 +5,10 @@ Parameters:
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: EC2 KeyPair for SSH access
+  
+  HostedZoneId:
+    Type: String
+    Description: The ID of the hosted zone for recipehub.info
 
 Resources:
   VPC:
@@ -103,6 +107,8 @@ Resources:
         Fn::Sub: |
           #!/bin/bash
           yum update -y
+          systemctl start httpd
+          systemctl enable httpd
           cd /var/www/html
           composer install --no-dev --optimize-autoloader
           chmod -R 775 storage bootstrap/cache
@@ -123,6 +129,8 @@ Resources:
         Fn::Sub: |
           #!/bin/bash
           yum update -y
+          systemctl start httpd
+          systemctl enable httpd
           cd /var/www/html
           composer install --no-dev --optimize-autoloader
           chmod -R 775 storage bootstrap/cache
@@ -184,3 +192,13 @@ Resources:
       DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref TargetGroup
+
+  RecipeHubDNSRecord:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        HostedZoneId: !Ref HostedZoneId
+        Name: www.recipehub.info.
+        Type: A
+      AliasTarget:
+        DNSName: !GetAtt LoadBalancer.DNSName
+        HostedZoneId: !GetAtt LoadBalancer.CanonicalHostedZoneID
