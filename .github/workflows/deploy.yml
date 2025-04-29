@@ -60,7 +60,7 @@ jobs:
         id: get_instance_ids
         run: |
           INSTANCE_IDS=$(aws ec2 describe-instances \
-          --filters "Name=tag:Name,Values=LaravelInstance*" \
+          --filters "Name=tag:Name,Values=LaravelInstance1,LaravelInstance2" "Name=instance-state-name,Values=running" \
           --query "Reservations[].Instances[].InstanceId" \
           --output text)
           echo "INSTANCE_IDS=$INSTANCE_IDS" >> $GITHUB_ENV
