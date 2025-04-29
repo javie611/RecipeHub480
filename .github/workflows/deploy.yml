@@ -69,7 +69,7 @@ jobs:
         id: get_tg_arn
         run: |
           TG_ARN=$(aws elbv2 describe-target-groups \
-          --names LaravelTargetGroup \
+          --names RHLaravelTargetGroup \
           --query "TargetGroups[0].TargetGroupArn" \
           --output text)
           echo "TG_ARN=$TG_ARN" >> $GITHUB_ENV
