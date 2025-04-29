@@ -56,6 +56,33 @@ jobs:
       - name: Wait for EC2s to initialize
         run: sleep 60
 
+      - name: Retrieve EC2 Instance IDs
+        id: get_instance_ids
+        run: |
+          INSTANCE_IDS=$(aws ec2 describe-instances \
+          --filters "Name=tag:Name,Values=LaravelInstance*" \
+          --query "Reservations[].Instances[].InstanceId" \
+          --output text)
+          echo "INSTANCE_IDS=$INSTANCE_IDS" >> $GITHUB_ENV
+
+      - name: Retrieve Target Group ARN
+        id: get_tg_arn
+        run: |
+          TG_ARN=$(aws elbv2 describe-target-groups \
+          --names LaravelTargetGroup \
+          --query "TargetGroups[0].TargetGroupArn" \
+          --output text)
+          echo "TG_ARN=$TG_ARN" >> $GITHUB_ENV
+
+      - name: Register EC2 Instances to Target Group
+        run: |
+          for ID in $INSTANCE_IDS; do
+          aws elbv2 register-targets \
+          --target-group-arn $TG_ARN \
+          --targets Id=$ID
+          echo "Successfully Registered Target Groups"
+          done
+
       - name: Revert template.yaml back to placeholder
         run: |
           echo "Reverting template.yaml back to <NEW_AMI_ID>..."
