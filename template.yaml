@@ -199,6 +199,6 @@ Resources:
         HostedZoneId: !Ref HostedZoneId
         Name: www.recipehub.info.
         Type: A
-      AliasTarget:
-        DNSName: !GetAtt LoadBalancer.DNSName
-        HostedZoneId: Z35SXDOTRQ7X7K
+        AliasTarget:
+          DNSName: !GetAtt LoadBalancer.DNSName
+          HostedZoneId: Z35SXDOTRQ7X7K
