@@ -197,6 +197,7 @@ Resources:
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
+      Name: RHLaravelTargetGroup
       VpcId: !Ref VPC
       Protocol: HTTP
       Port: 80
@@ -209,9 +210,6 @@ Resources:
       UnhealthyThresholdCount: 2
       Matcher:
         HttpCode: 200
-      Tags:
-      - Key: Name
-        Value: LaravelTargetGroup  
 
   ListenerHTTP:
     Type: AWS::ElasticLoadBalancingV2::Listener
