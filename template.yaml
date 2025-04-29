@@ -8,8 +8,8 @@ Parameters:
   
   HostedZoneId:
     Type: String
-    Description: The ID of the hosted zone for recipehub.info
-
+    Description: Your Route 53 hosted zone ID  
+    
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -114,6 +114,7 @@ Resources:
           chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
+          systemctl restart httpd
           ./vendor/bin/pest
 
   LaravelInstance2:
@@ -136,6 +137,7 @@ Resources:
           chmod -R 775 storage bootstrap/cache
           php artisan config:cache
           php artisan migrate --force
+          systemctl restart httpd
           ./vendor/bin/pest
 
   LoadBalancer:
@@ -195,11 +197,10 @@ Resources:
 
   RecipeHubDNSRecord:
       Type: AWS::Route53::RecordSet
-      DependsOn: LoadBalancer
       Properties:
         HostedZoneId: !Ref HostedZoneId
         Name: www.recipehub.info.
         Type: A
         AliasTarget:
           DNSName: !GetAtt LoadBalancer.DNSName
-          HostedZoneId: Z35SXDOTRQ7X7K
+          HostedZoneId: !GetAtt LoadBalancer.CanonicalHostedZoneID
