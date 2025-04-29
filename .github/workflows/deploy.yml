@@ -51,7 +51,7 @@ jobs:
             --template-file template.yaml \
             --stack-name $STACK_NAME \
             --capabilities CAPABILITY_NAMED_IAM \
-            --parameter-overrides KeyName="web server key" HostedZoneId="Z082369723XCVMCYY5MYD"
+            --parameter-overrides KeyName="web server key" HostedZoneId=Z082369723XCVMCYY5MYD
                
       - name: Wait for EC2s to initialize
         run: sleep 60
