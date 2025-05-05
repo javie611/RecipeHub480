@@ -36,12 +36,18 @@
     <div class="recipes-grid">
         <!-- Recipe Slot 1 -->
         <div class="recipe-card">
+            <img src="images/shortrib.webp" alt="Short rib ragu, pumpkin mac and cheese">
+            <p>Short rib ragu, pumpkin mac and cheese</p>
         </div>
         <!-- Recipe Slot 2 -->
         <div class="recipe-card">
+            <img src="images/air-fryer-chicken-wings-mc-2x1-241025.webp" alt="Air-Fryer Chicken Wings">
+            <p>Air-Fryer Chicken Wings</p>
         </div>
         <!-- Recipe Slot 3 -->
         <div class="recipe-card">
+            <img src="images/croissant-cinnamon-rolls-mc-2x1-240723.webp" alt="Croissant Cinnamon Rolls">
+            <p>Croissant Cinnamon Rolls</p>
         </div>
     </div>
 </div>
@@ -55,7 +61,7 @@ async function loadContent() {
     const cacheKey = 'dailyRecipes';
     const cacheTimestampKey = 'dailyRecipesTimestamp';
     const oneDayInMillis = 24 * 60 * 60 * 1000; // 1 day in milliseconds
-    const randomRecipeEndpoint = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=3`; // Fetch 3 recipes
+    const randomRecipeEndpoint = https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=3; // Fetch 3 recipes
 
     const now = Date.now();
     let recipes = [];
@@ -81,30 +87,10 @@ async function loadContent() {
         setupSlideshow(recipes);
     } catch (error) {
         console.error('Error fetching recipes:', error);
-        document.getElementById('recipe-image').innerHTML = `<p>Error loading recipes. Please try again later.</p>`;
+        document.getElementById('recipe-image').innerHTML = <p>Error loading recipes. Please try again later.</p>;
     }
 }
-try {
-        const cachedWeekly = localStorage.getItem(weeklyCacheKey);
-        const cachedWeeklyTimestamp = localStorage.getItem(weeklyTimestampKey);
 
-        if (cachedWeekly && cachedWeeklyTimestamp && now - parseInt(cachedWeeklyTimestamp) < oneWeekInMillis) {
-            weeklyRecipes = JSON.parse(cachedWeekly);
-        } else {
-            const response = await fetch(randomRecipeEndpoint);
-            const data = await response.json();
-            weeklyRecipes = data.recipes;
-            localStorage.setItem(weeklyCacheKey, JSON.stringify(weeklyRecipes));
-            localStorage.setItem(weeklyTimestampKey, now.toString());
-        }
-
-        displayWeeklyRecipes(weeklyRecipes);
-    } catch (error) {
-        console.error('Error fetching weekly recipes:', error);
-        const container = document.querySelector('.last-week-recipes .recipes-grid');
-        container.innerHTML = `<p>Error loading last week's recipes.</p>`;
-    }
-}
 function setupSlideshow(recipes) {
     const recipeImageContainer = document.getElementById('recipe-image');
     const prevBtn = document.getElementById('prev-btn');
@@ -119,33 +105,33 @@ function setupSlideshow(recipes) {
         const recipe = recipes[index];
 
         // Update image
-        recipeImageContainer.innerHTML = `<img src="${recipe.image}" alt="${recipe.title}" style="max-width: 100%; height: auto;">`;
+        recipeImageContainer.innerHTML = <img src="${recipe.image}" alt="${recipe.title}" style="max-width: 100%; height: auto;">;
 
         // Update flip box front with ingredients
         const ingredientsList = recipe.extendedIngredients
-            .map(ingredient => `<li>${ingredient.original}</li>`)
+            .map(ingredient => <li>${ingredient.original}</li>)
             .join('');
-        flipBoxFront.innerHTML = `
+        flipBoxFront.innerHTML = 
             <h2 style="margin-bottom: 15px; font-size: 24px;">${recipe.title}</h2>
             <h3 style="margin-bottom: 10px; font-size: 20px;">Ingredients</h3>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 ${ingredientsList}
             </ul>
-        `;
+        ;
 
         // Update flip box back with instructions
         if (recipe.analyzedInstructions && recipe.analyzedInstructions.length > 0) {
             const steps = recipe.analyzedInstructions[0].steps
-                .map((step, index) => `<li> ${step.step}</li>`)
+                .map((step, index) => <li> ${step.step}</li>)
                 .join('');
-            flipBoxBack.innerHTML = `
+            flipBoxBack.innerHTML = 
                 <h3 style="margin-bottom: 10px; font-size: 20px;">Instructions</h3>
                 <ul style="list-style: decimal; padding: 0 20px; margin: 0;">
                     ${steps}
                 </ul>
-            `;
+            ;
         } else {
-            flipBoxBack.innerHTML = `<p>No instructions available.</p>`;
+            flipBoxBack.innerHTML = <p>No instructions available.</p>;
         }
     }
 
@@ -163,24 +149,8 @@ function setupSlideshow(recipes) {
         displayRecipe(currentIndex);
     });
 }
-function displayWeeklyRecipes(recipes) {
-    const container = document.querySelector('.last-week-recipes .recipes-grid');
-    container.innerHTML = ''; // Clear existing
 
-    recipes.forEach(recipe => {
-        const card = document.createElement('div');
-        card.classList.add('recipe-card');
-
-        card.innerHTML = `
-            <img src="${recipe.image}" alt="${recipe.title}">
-            <p><a href="${recipe.sourceUrl}" target="_blank" style="text-decoration: none; color: #333;">${recipe.title}</a></p>
-        `;
-
-        container.appendChild(card);
-    });
-}
 
 document.addEventListener('DOMContentLoaded', loadContent);
 </script>
 @endpush
- 
