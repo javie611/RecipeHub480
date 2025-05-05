@@ -90,7 +90,27 @@ async function loadContent() {
         document.getElementById('recipe-image').innerHTML = `<p>Error loading recipes. Please try again later.</p>`;
     }
 }
+try {
+        const cachedWeekly = localStorage.getItem(weeklyCacheKey);
+        const cachedWeeklyTimestamp = localStorage.getItem(weeklyTimestampKey);
 
+        if (cachedWeekly && cachedWeeklyTimestamp && now - parseInt(cachedWeeklyTimestamp) < oneWeekInMillis) {
+            weeklyRecipes = JSON.parse(cachedWeekly);
+        } else {
+            const response = await fetch(randomRecipeEndpoint);
+            const data = await response.json();
+            weeklyRecipes = data.recipes;
+            localStorage.setItem(weeklyCacheKey, JSON.stringify(weeklyRecipes));
+            localStorage.setItem(weeklyTimestampKey, now.toString());
+        }
+
+        displayWeeklyRecipes(weeklyRecipes);
+    } catch (error) {
+        console.error('Error fetching weekly recipes:', error);
+        const container = document.querySelector('.last-week-recipes .recipes-grid');
+        container.innerHTML = `<p>Error loading last week's recipes.</p>`;
+    }
+}
 function setupSlideshow(recipes) {
     const recipeImageContainer = document.getElementById('recipe-image');
     const prevBtn = document.getElementById('prev-btn');
@@ -149,7 +169,22 @@ function setupSlideshow(recipes) {
         displayRecipe(currentIndex);
     });
 }
+function displayWeeklyRecipes(recipes) {
+    const container = document.querySelector('.last-week-recipes .recipes-grid');
+    container.innerHTML = ''; // Clear existing
 
+    recipes.forEach(recipe => {
+        const card = document.createElement('div');
+        card.classList.add('recipe-card');
+
+        card.innerHTML = `
+            <img src="${recipe.image}" alt="${recipe.title}">
+            <p><a href="${recipe.sourceUrl}" target="_blank" style="text-decoration: none; color: #333;">${recipe.title}</a></p>
+        `;
+
+        container.appendChild(card);
+    });
+}
 
 document.addEventListener('DOMContentLoaded', loadContent);
 </script>
