@@ -61,7 +61,7 @@ async function loadContent() {
     const cacheKey = 'dailyRecipes';
     const cacheTimestampKey = 'dailyRecipesTimestamp';
     const oneDayInMillis = 24 * 60 * 60 * 1000; // 1 day in milliseconds
-    const randomRecipeEndpoint = https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=3; // Fetch 3 recipes
+    const randomRecipeEndpoint = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=3`; // Fetch 3 recipes
 
     const now = Date.now();
     let recipes = [];
@@ -87,7 +87,7 @@ async function loadContent() {
         setupSlideshow(recipes);
     } catch (error) {
         console.error('Error fetching recipes:', error);
-        document.getElementById('recipe-image').innerHTML = <p>Error loading recipes. Please try again later.</p>;
+        document.getElementById('recipe-image').innerHTML = `<p>Error loading recipes. Please try again later.</p>`;
     }
 }
 
@@ -100,45 +100,44 @@ function setupSlideshow(recipes) {
 
     let currentIndex = 0;
 
-    // Function to display a recipe
     function displayRecipe(index) {
         const recipe = recipes[index];
 
         // Update image
-        recipeImageContainer.innerHTML = <img src="${recipe.image}" alt="${recipe.title}" style="max-width: 100%; height: auto;">;
+        recipeImageContainer.innerHTML = `<img src="${recipe.image}" alt="${recipe.title}" style="max-width: 100%; height: auto;">`;
 
-        // Update flip box front with ingredients
+        // Ingredients
         const ingredientsList = recipe.extendedIngredients
-            .map(ingredient => <li>${ingredient.original}</li>)
+            .map(ingredient => `<li>${ingredient.original}</li>`)
             .join('');
-        flipBoxFront.innerHTML = 
+        flipBoxFront.innerHTML = `
             <h2 style="margin-bottom: 15px; font-size: 24px;">${recipe.title}</h2>
             <h3 style="margin-bottom: 10px; font-size: 20px;">Ingredients</h3>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 ${ingredientsList}
             </ul>
-        ;
+        `;
 
-        // Update flip box back with instructions
+        // Instructions
         if (recipe.analyzedInstructions && recipe.analyzedInstructions.length > 0) {
             const steps = recipe.analyzedInstructions[0].steps
-                .map((step, index) => <li> ${step.step}</li>)
+                .map(step => `<li>${step.step}</li>`)
                 .join('');
-            flipBoxBack.innerHTML = 
+            flipBoxBack.innerHTML = `
                 <h3 style="margin-bottom: 10px; font-size: 20px;">Instructions</h3>
                 <ul style="list-style: decimal; padding: 0 20px; margin: 0;">
                     ${steps}
                 </ul>
-            ;
+            `;
         } else {
-            flipBoxBack.innerHTML = <p>No instructions available.</p>;
+            flipBoxBack.innerHTML = `<p>No instructions available.</p>`;
         }
     }
 
-    // Display the first recipe initially
+    // Initialize
     displayRecipe(currentIndex);
 
-    // Add event listeners for buttons
+    // Navigation
     prevBtn.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + recipes.length) % recipes.length;
         displayRecipe(currentIndex);
@@ -149,7 +148,6 @@ function setupSlideshow(recipes) {
         displayRecipe(currentIndex);
     });
 }
-
 
 document.addEventListener('DOMContentLoaded', loadContent);
 </script>
