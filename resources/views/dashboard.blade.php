@@ -34,12 +34,16 @@
 <div class="last-week-recipes" style="margin-top: 40px;">
     <h2 style="text-align: center; font-size: 24px; margin-bottom: 20px;">Last Week's Recipes</h2>
     <div class="recipes-grid">
-        @foreach($recipes as $recipe)
-        <div class="recipe-card">
-            <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}">
-            <p>{{ $recipe['title'] }}</p>
-        </div>
-        @endforeach
+       @foreach($recipes as $recipe)
+<div class="recipe-card">
+    <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}">
+    <p>
+        <a href="{{ $recipe['sourceUrl'] }}" target="_blank" style="text-decoration: none; color: inherit;">
+            {{ $recipe['title'] }}
+        </a>
+    </p>
+</div>
+@endforeach
     </div>
 </div>
 
