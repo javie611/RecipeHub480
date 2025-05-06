@@ -72,9 +72,6 @@ body {
     transform-style: preserve-3d;
 }
 
-.flip-box:hover .flip-box-inner {
-    transform: rotateY(180deg);
-}
 
 /* Common styles for front and back */
 .flip-box-front,
