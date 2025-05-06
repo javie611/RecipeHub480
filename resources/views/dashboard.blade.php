@@ -143,6 +143,16 @@ function setupSlideshow(recipes) {
         displayRecipe(currentIndex);
     });
 }
+document.addEventListener('DOMContentLoaded', () => {
+    loadContent();
+
+    const flipBox = document.getElementById('flip-box');
+    if (flipBox) {
+        flipBox.addEventListener('click', () => {
+            flipBox.classList.toggle('flipped');
+        });
+    }
+});
 
 document.addEventListener('DOMContentLoaded', loadContent);
 </script>
