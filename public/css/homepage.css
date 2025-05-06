@@ -1,214 +1,369 @@
 body {
-  font-family: Arial, sans-serif;
-  background: url('/images/cartoon-cooking-image.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  overflow: auto;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: -1;
-  pointer-events: none;
-}
+    font-family: Arial, sans-serif;
+    background: url('/images/cartoon-cooking-image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+body {
+    position: relative; 
+    overflow: auto;   
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); / Adjust opacity for better readability */
+    z-index: -1;
+    pointer-events: none;
+  }
 
 .homepage-container h1 {
-  font-size: 2em;
-  color: #fff;
-  font-weight: bold;
-  background-color: rgba(179, 160, 224, 0.8);
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  margin-bottom: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  border: none;
-  z-index: 10;
-  position: relative;
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+    font-weight: bold;
+    background-color: #FFB6C1;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
 }
 
 .slideshow-container {
-  width: 100%;
-  padding: 20px;
-  text-align: center;
-  position: relative;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 6px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd;
-  margin-bottom: 20px;
+    width: 100%;
+    height: auto;
+    border: none;
+    padding: 10px;
+    text-align: center;
 }
 
 .slideshow-container img {
-  display: block;
-  max-width: 80%;
-  height: auto;
-  margin: 0 auto;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Flip box container */
+.flip-box {
+    
+    perspective: 1000px;
+    width: 45%;
+    height: 300px; /* Adjust the height to match content */
+    margin: 0 auto; /* Center the flip box */
+    border: none;
+    border-radius: 8px;
+    position: relative;
+    background-color: transparent; /* Ensure the container has no interfering color */
+}
+
+.flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.flip-box.flipped .flip-box-inner {
+    transform: rotateY(180deg); /* Flipped state */
+}
+
+/* Common styles for front and back */
+.flip-box-front,
+.flip-box-back {
+    color: purple;
+    background-color: #f1bfca !important; /* Ensures the color is applied */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center the content vertically */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Back face (Instructions) */
+.flip-box-back {
+    transform: rotateY(180deg);
+    text-align: left; /* Align all text to the left */
+    padding: 10px; /* Add padding for consistent spacing */
+    overflow-y: auto; /* Ensure scrolling for overflowing content */
+    line-height: 1.6; /* Adjust line spacing for readability */
+    word-wrap: break-word; /* Prevent long words from breaking the layout */
 }
 
 button#prev-btn,
 button#next-btn {
-  background-color: #c1b4f1;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  z-index: 3;
+    background-color: #dcd4f7; /* Light purple */
+    color: rgb(247, 243, 243); /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Button padding */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+/* Hover effect for buttons */
+button#prev-btn:hover,
+button#next-btn:hover {
+    background-color: #b3a0e0; /* Darker purple on hover */
+}
+
+.flip-box {
+    transition: transform 1.0s ease; /* Increase time for smoother transitions */
+  }
+  /* Make "Recipes of the Week" header visible */
+.homepage-container h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #fff; /* White text for better visibility */
+    font-weight: bold;
+    background-color: #b3a0e0(210, 119, 233, 0.7); /* Semi-transparent black background */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: none;
+    z-index: 10; /* Ensure it appears above other elements */
+    position: relative; /* Position relative to other elements */
+}
+
+/* Transparent box behind the image */
+.slideshow-container img {
+    display: block;
+    max-width: 100%; /* Ensure the image stays responsive */
+    height: auto;
+    margin: 0 auto; /* Center the image */
+    border-radius: 8px; /* Match the container's border radius */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle depth */
+}
+
+.slideshow-container {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    margin-right: 30px;
+    border-radius: 6px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    z-index: 2; /* Ensure it is above the background but below the header */
+}
+
+/* Navigation button adjustments for consistency */
+button#prev-btn,
+button#next-btn {
+    background-color: #c1b4f1; /* Light purple */
+    color: white; /* Darker text for better visibility */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 3; /* Ensure they are above the transparent box */
 }
 
 button#prev-btn:hover,
 button#next-btn:hover {
-  background-color: #b3a0e0;
+    background-color: #b3a0e0; /* Darker purple on hover */
 }
-
-.flip-box {
-  perspective: 1000px;
-  width: 45%;
-  height: 300px;
-  margin: 0 auto;
-  border: none;
-  border-radius: 8px;
-  position: relative;
-  background-color: transparent;
-  transition: transform 1s ease;
-}
-
-.flip-box-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s ease-in-out;
-  transform-style: preserve-3d;
-}
-
-.flip-box.flipped .flip-box-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-box-front,
-.flip-box-back {
-  color: purple;
-  background-color: #f1bfca !important;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow-y: auto;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  text-align: center;
-}
-
-.flip-box-back {
-  transform: rotateY(180deg);
-  text-align: left;
-  line-height: 1.6;
-  word-wrap: break-word;
-}
-
 .ingredients-container {
-  background-color: #f8d5f7;
-  padding: 20px;
-  border-radius: 8px;
-  margin-left: 30px;
-  text-align: left;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  flex: 1;
+    background-color: #f8d5f7; /* Light pink background */
+    padding: 20px;
+    border-radius: 8px;
+    margin-left: 30px;
+    text-align: left;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 30px; /* Space between image and text */
+    flex: 1;
+}
+/* Adjust image size */
+.slideshow-container img {
+    display: block;
+    max-width: 80%; /* Increase the width of the image */
+    height: auto;
+    margin: 0 auto; /* Center the image */
+    border-radius: 8px; /* Keep rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for better appearance */
 }
 
+/* Reduce empty space at the bottom */
+.slideshow-container {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 6px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    margin-bottom: 20px; /* Reduce bottom margin */
+}
+
+/* Add bottom bar */
 .footer-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: rgba(211, 172, 223, 0.8);
-  text-align: center;
-  padding: 15px 0;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  border-top: 2px solid #b3a0e0;
-  z-index: 100;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(211, 172, 223, 0.8); /* Light purple color */
+    text-align: center;
+    padding: 15px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    border-top: 2px solid #b3a0e0;
+    z-index: 100;
+    margin-top: 100px;
 }
-
-.last-week-recipes {
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 40px auto 20px;
-  max-width: 90%;
-}
-
 .last-week-recipes h2 {
-  font-size: 2rem;
-  color: #955fc7;
-  text-align: center;
-  padding: 10px 20px;
-  background-color: rgba(255, 182, 193, 0.8);
-  border: 2px solid white;
-  border-radius: 10px;
-  display: inline-block;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+    font-size: 1.6rem; /* Larger font size */
+    color: #955fc7; /* Purple text */
+    text-align: center; /* Center align the text */
+    margin: 0 auto; /* Center within the container */
+    padding: 20;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    border: 2px solid white; /* White border for better readability */
+    border-radius: 10px; /* Rounded corners */
+    display: inline-block; /* Fit the text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative; /* For layout control */
+    transform: translateX(-50%);
+    left: 50%; /* Center horizontally */
 }
 
+/* Style for recipe captions below images */
+.recipe-caption {
+    font-size: 1.2rem;
+    color: #32045e; /* Purple text */
+    text-align: center;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    padding: 5px 10px; /* Padding for spacing */
+    margin-top: 30px; /* Spacing above captions */
+    border: 2px solid white; /* White border */
+    border-radius: 10px; /* Rounded corners */
+    display: inline-block; /* Wrap background to fit the text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
+
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start; /* Ensures items are aligned from the top */
+}
+
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Ensures content is pushed to the bottom */
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px; /* Adds space between image and description */
+}
+
+.recipe-card p {
+    margin: 0;
+    font-size: 16px;
+    color: #7e57c2;
+}
+/* Container for Last Week's Recipes */
+.last-week-recipes {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+    top: 875px; /* Increased to bring the container further down */
+    margin-bottom: 20px;
+}
+
+/* Heading Style */
+.last-week-recipes h2 {
+    font-size: 2rem; /* Larger font size */
+    color: #955fc7; /* Purple text */
+    text-align: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    border: 2px solid white; /* White border for better readability */
+    border-radius: 10px; /* Rounded corners */
+    display: inline-block; /* Fit the text */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
+    margin-bottom: 20px;
+}
+
+/* Recipe Cards */
 .recipe-grid {
-  display: flex;
-  justify-content: space-around;
-  gap: 50px;
-  padding: 10px;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    padding: 10px;
 }
 
 .recipe-item {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #f3e5f5;
-  border-radius: 12px;
-  text-align: center;
-  padding: 15px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white for better contrast */
+    border: 1px solid #f3e5f5; /* Light pink border */
+    border-radius: 12px; /* Rounded corners */
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add some depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .recipe-item img {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
-  margin-bottom: 10px;
-  border-radius: 8px;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px; /* Rounded corners */
 }
 
 .recipe-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
+/* Caption Style */
 .recipe-item .recipe-caption {
-  font-size: 1.2rem;
-  color: #955fc7;
-  background-color: rgba(255, 182, 193, 0.8);
-  padding: 5px 10px;
-  border: 2px solid white;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    color: #955fc7; /* Purple text */
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background */
+    padding: 5px 10px; /* Spacing */
+    border: 2px solid white; /* White border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow */
 }
