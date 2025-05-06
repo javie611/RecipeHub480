@@ -72,6 +72,9 @@ body {
     transform-style: preserve-3d;
 }
 
+.flip-box.flipped .flip-box-inner {
+    transform: rotateY(180deg); /* Flipped state */
+}
 
 /* Common styles for front and back */
 .flip-box-front,
