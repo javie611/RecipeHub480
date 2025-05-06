@@ -21,14 +21,16 @@
         </div>
 
         <!-- Flip box on the right -->
-        <div class="flip-box" style="flex: 1; perspective: 1000px; height: 300px;">
-            <div class="flip-box-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
-                <div class="flip-box-front" id="flip-box-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; overflow-y: auto; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9; border-radius: 8px; box-sizing: border-box;">
-                </div>
-                <div class="flip-box-back" id="flip-box-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; overflow-y: auto; padding: 10px; border: 1px solid #ddd; background-color: #f4f4f4; transform: rotateY(180deg); border-radius: 8px; box-sizing: border-box;">
-                </div>
-            </div>
+        <div class="flip-box" id="flip-box" style="flex: 1; perspective: 1000px; height: 300px;">
+    <div class="flip-box-inner">
+        <div class="flip-box-front" id="flip-box-front"
+             style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; overflow-y: auto; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9; border-radius: 8px; box-sizing: border-box;">
         </div>
+        <div class="flip-box-back" id="flip-box-back"
+             style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; overflow-y: auto; padding: 10px; border: 1px solid #ddd; background-color: #f4f4f4; transform: rotateY(180deg); border-radius: 8px; box-sizing: border-box;">
+        </div>
+    </div>
+</div>
     </div>
 </div>
 <div class="last-week-recipes" style="margin-top: 40px;">
