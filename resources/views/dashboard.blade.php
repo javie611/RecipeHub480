@@ -155,7 +155,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-document.addEventListener('DOMContentLoaded', loadContent);
 </script>
 @endpush
