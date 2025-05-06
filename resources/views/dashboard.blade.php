@@ -34,21 +34,12 @@
 <div class="last-week-recipes" style="margin-top: 40px;">
     <h2 style="text-align: center; font-size: 24px; margin-bottom: 20px;">Last Week's Recipes</h2>
     <div class="recipes-grid">
-        <!-- Recipe Slot 1 -->
+        @foreach($recipes as $recipe)
         <div class="recipe-card">
-            <img src="images/shortrib.webp" alt="Short rib ragu, pumpkin mac and cheese">
-            <p>Short rib ragu, pumpkin mac and cheese</p>
+            <img src="{{ $recipe['image'] }}" alt="{{ $recipe['title'] }}">
+            <p>{{ $recipe['title'] }}</p>
         </div>
-        <!-- Recipe Slot 2 -->
-        <div class="recipe-card">
-            <img src="images/air-fryer-chicken-wings-mc-2x1-241025.webp" alt="Air-Fryer Chicken Wings">
-            <p>Air-Fryer Chicken Wings</p>
-        </div>
-        <!-- Recipe Slot 3 -->
-        <div class="recipe-card">
-            <img src="images/croissant-cinnamon-rolls-mc-2x1-240723.webp" alt="Croissant Cinnamon Rolls">
-            <p>Croissant Cinnamon Rolls</p>
-        </div>
+        @endforeach
     </div>
 </div>
 
